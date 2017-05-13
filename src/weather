@@ -1,0 +1,91 @@
+import React, { Component } from 'react';
+import './App.css';
+
+const PLACES = [
+  { name: "Huntington", zip: "25701"},
+  { name: "Austin", zip: "78701"},
+  { name: "Las Vegas", zip: "89109"},
+  { name: "Los Angeles", zip: "90079"},
+  { name: "Seattle", zip: "98101"},
+  { name: "Miami", zip: "33141"},
+  { name: "New York", zip: "10004"}
+]
+
+class WeatherDisplay extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      weatherData: null
+    }
+  }
+
+  componentDidMount() {
+    const zip = this.props.zip;
+    const URL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&appid=b1b35bba8b434a28a0be2a3e1071ae5b&units=imperial"; 
+    fetch(URL).then(res => res.json()).then(json => {
+      this.setState({ weatherData: json});
+    })
+  }
+
+  render(){
+    const weatherData = this.state.weatherData;
+    if (!weatherData) return <div>Loading...</div>;
+    const weather = weatherData.weather[0];
+    const iconURL = "http://openweathermap.org/img/w/" + weather.icon + ".png";
+
+    return(
+      <div>
+        <h1>
+          {weather.main} in {weatherData.name}
+          <img src={iconURL} alt={weatherData.description} />
+        </h1>
+        <p>Current: {weatherData.main.temp}&deg;</p>
+        <p>High: {weatherData.main.temp_max}&deg;</p>
+        <p>Low: {weatherData.main.temp_min}&deg;</p>
+        <p>Wind Speed: {weatherData.wind.speed} mi/hr</p>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePlace: 0
+    };
+  }
+
+  render() {
+    const activePlace = this.state.activePlace;
+    return (
+      <div className="App">
+
+          <WeatherDisplay 
+            zip={PLACES[activePlace].zip}
+            key={activePlace} 
+          />
+          
+          {PLACES.map((place, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                // Never directly mutate state because React won't know to call render again
+                // this.state.activePlace = index;
+
+                // This is how it's done
+                this.setState({ activePlace: index })
+              }}
+            >
+              {place.name}
+            </button>
+          ))}
+
+      </div>
+    );
+  }
+}
+
+export default App;
