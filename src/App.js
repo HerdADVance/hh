@@ -113,13 +113,34 @@ class PlayerOne extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      hand: 7,
+      chosenCards: [false,false,false,false,false,false,false,false,false,false],
+      chosenCardsNumber: 0
     }
   }
 
   componentDidMount() {
     //const hand = [7,7,7]
     //const cards = []
+  }
+
+  handleCardClick(index){
+    var chosenCards = this.state.chosenCards
+    var chosenCardsNumber = this.state.chosenCardsNumber
+
+    if(!chosenCards[index]){
+      if(chosenCardsNumber < 2){
+        chosenCards[index] = true
+        chosenCardsNumber ++
+      }
+      else{
+        alert("You can only select 2 cards.")
+      }
+    }
+    else{
+      chosenCards[index] = false
+      chosenCardsNumber --
+    }
+    this.setState({ chosenCards: chosenCards, chosenCardsNumber: chosenCardsNumber })
   }
 
   render(){
@@ -131,6 +152,10 @@ class PlayerOne extends Component{
             key={index}
             src={"/img/cards/" + card.face + card.suit + ".png"}
             alt="Card"
+            onClick={() => {
+              this.handleCardClick(index)
+            }}
+            className={this.state.chosenCards[index] && "chosen"}
           />
         ))}
       </div>
@@ -205,7 +230,25 @@ class Game extends Component{
       count ++;
     }
 
+    playerOneHand.sort(this.sortByRank);
+    playerTwoHand.sort(this.sortByRank);
+
     this.setState({ playerOneHand: playerOneHand, playerTwoHand: playerTwoHand })
+  }
+
+  sortByRank(a,b){
+      if (a.rank < b.rank)
+        return -1;
+      if (a.rank > b.rank)
+        return 1;
+      return 0;
+  }
+  sortBySuit(a,b){
+      if (a.suit < b.suit)
+        return -1;
+      if (a.suit > b.suit)
+        return 1;
+      return 0;
   }
 
   componentDidMount() {
