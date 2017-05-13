@@ -113,7 +113,7 @@ class PlayerOne extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      chosenCards: [false,false,false,false,false,false,false,false,false,false],
+      chosenCards: [],
       chosenCardsNumber: 0
     }
   }
@@ -124,23 +124,23 @@ class PlayerOne extends Component{
   }
 
   handleCardClick(index){
+    console.log(index)
     var chosenCards = this.state.chosenCards
-    var chosenCardsNumber = this.state.chosenCardsNumber
 
-    if(!chosenCards[index]){
-      if(chosenCardsNumber < 2){
-        chosenCards[index] = true
-        chosenCardsNumber ++
+    if(!chosenCards.includes(index)){
+      if(chosenCards.length < 2){
+        chosenCards.push(index)
       }
       else{
         alert("You can only select 2 cards.")
       }
     }
     else{
-      chosenCards[index] = false
-      chosenCardsNumber --
+      var removeIndex = chosenCards.indexOf(index)
+      chosenCards.splice(removeIndex, 1);
     }
-    this.setState({ chosenCards: chosenCards, chosenCardsNumber: chosenCardsNumber })
+    console.log(chosenCards)
+    this.setState({ chosenCards: chosenCards })
   }
 
   render(){
@@ -155,7 +155,7 @@ class PlayerOne extends Component{
             onClick={() => {
               this.handleCardClick(index)
             }}
-            className={this.state.chosenCards[index] && "chosen"}
+            className={this.state.chosenCards.includes(index) && "chosen"}
           />
         ))}
       </div>
