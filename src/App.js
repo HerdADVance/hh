@@ -56,46 +56,6 @@ const DECK = [
   { rank: 14, face: 'A', suit: 'S'}
 ]
 
-class WeatherDisplay extends Component{
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      weatherData: null
-    }
-  }
-
-  componentDidMount() {
-    const zip = this.props.zip;
-    const URL = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&appid=b1b35bba8b434a28a0be2a3e1071ae5b&units=imperial"; 
-    fetch(URL).then(res => res.json()).then(json => {
-      this.setState({ weatherData: json});
-    })
-  }
-
-  render(){
-    const weatherData = this.state.weatherData;
-
-    if (!weatherData) return <div>Loading...</div>;
-    
-    const weather = weatherData.weather[0];
-    const iconURL = "http://openweathermap.org/img/w/" + weather.icon + ".png";
-
-    return(
-      <div>
-        <h1>
-          {weather.main} in {weatherData.name}
-          <img src={iconURL} alt={weatherData.description} />
-        </h1>
-        <p>Current: {weatherData.main.temp}&deg;</p>
-        <p>High: {weatherData.main.temp_max}&deg;</p>
-        <p>Low: {weatherData.main.temp_min}&deg;</p>
-        <p>Wind Speed: {weatherData.wind.speed} mi/hr</p>
-      </div>
-    )
-  }
-}
-
 // class Hand extends Component{
 //   constructor(props) {
 //     super(props);
@@ -114,7 +74,7 @@ class PlayerOne extends Component{
     super(props);
     this.state = {
       chosenCards: [],
-      chosenCardsNumber: 0
+      hasPlayed: false
     }
   }
 
@@ -124,40 +84,57 @@ class PlayerOne extends Component{
   }
 
   handleCardClick(index){
-    console.log(index)
     var chosenCards = this.state.chosenCards
 
-    if(!chosenCards.includes(index)){
-      if(chosenCards.length < 2){
+    if(!chosenCards.includes(index)){ // Card was not chosen
+      if(chosenCards.length < 2){  // Check to see if card can be chosen
         chosenCards.push(index)
       }
-      else{
+      else{ // Alert that card can't be chosen
         alert("You can only select 2 cards.")
       }
     }
-    else{
+    else{ // Card was already chosen so remove it
       var removeIndex = chosenCards.indexOf(index)
       chosenCards.splice(removeIndex, 1);
     }
-    console.log(chosenCards)
     this.setState({ chosenCards: chosenCards })
+  }
+
+  submitHand(){
+    this.hasPlayed = true
+    this.hasOpponentPlayed()
+  }
+
+  hasOpponentPlayed(){
+
   }
 
   render(){
     const hand = this.props.hand
     return(
-      <div className="cards p1">
-        {hand.map((card, index) => (
-          <img
-            key={index}
-            src={"/img/cards/" + card.face + card.suit + ".png"}
-            alt="Card"
-            onClick={() => {
-              this.handleCardClick(index)
-            }}
-            className={this.state.chosenCards.includes(index) && "chosen"}
-          />
-        ))}
+      <div class="player">
+        <div className="cards p1">
+          {hand.map((card, index) => (
+            <img
+              key={index}
+              src={"/img/cards/" + card.face + card.suit + ".png"}
+              alt="Card"
+              onClick={() => {
+                this.handleCardClick(index)
+              }}
+              className={this.state.chosenCards.includes(index) && "chosen"}
+            />
+          ))}
+        </div>
+        <button
+          hidden={this.state.chosenCards.length < 2}
+          onClick={() => {
+            this.submitHand()
+          }}
+        >
+          Play Hand
+        </button>
       </div>
     )
   }
@@ -199,8 +176,17 @@ class Game extends Component{
       round: 1,
       deck: DECK,
       playerOneHand: [],
-      playerTwoHand: []
+      playerTwoHand: [],
+      playerOneHasPlayed: false,
+      playerTwoHasPlayed: false,
+      playerOneScore: 0,
+      playerTwoScore: 0
     }
+  }
+
+  componentDidMount() {
+    this.shuffle(this.state.deck);
+    this.dealCards(this.state.deck);
   }
 
   shuffle(deck){
@@ -251,10 +237,9 @@ class Game extends Component{
       return 0;
   }
 
-  componentDidMount() {
-    this.shuffle(this.state.deck);
-    this.dealCards(this.state.deck);
-  }
+  compareHands(){
+
+  }  
 
   render(){
     return(
