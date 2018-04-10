@@ -27,6 +27,3 @@ body {
 .cards.p1 img.chosen{
 	opacity: 0.5;
 }
-.cards img:hover{
-	opacity: 0.7;
-}
