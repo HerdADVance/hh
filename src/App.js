@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PlayerOne from './PlayerOne';
+import PlayerOne from './Player/Player';
+import PlayerTwo from './Player/Player';
 import './App.css';
 
 const DECK = [
