@@ -1,6 +1,7 @@
+//import subscribeToTimer from './api'; 
 import React, { Component } from 'react';
 import PlayerOne from './Player/Player';
-import PlayerTwo from './Player/Player';
+//import PlayerTwo from './Player/Player';
 import './App.css';
 
 const DECK = [
@@ -202,8 +203,13 @@ class App extends Component {
     super(props);
     this.state = {
       activePlace: 0,
-      clicked: false
+      clicked: false,
+      timestamp: 'None yet'
     };
+    
+    // subscribeToTimer((err, timestamp) => this.setState({
+    //   timestamp
+    // }));
   }
 
   render() {
@@ -212,9 +218,10 @@ class App extends Component {
 
     return (
       <div className="App">
+          <p>
+            This is the timer value: {this.state.timestamp}
+          </p>
           
-          <Game />
-
       </div>
     );
   }
