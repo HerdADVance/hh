@@ -228,14 +228,14 @@ class App extends Component {
 
     return (
       <div className="App">
-          <p>
+          {/*<p>
             This is the timer value: {this.state.timestamp}
           </p>
           {response
           ? <p>
               The temperature in Huntington is: {response} °F
             </p>
-          : <p>Loading...</p>}
+          : <p>Loading...</p>}*/}
       </div>
     );
   }

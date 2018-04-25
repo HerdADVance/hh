@@ -17,6 +17,8 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+var router = express.Router();
+var mongojs = require('mongojs');
 const axios = require ("axios");
 //const async = require("async");
 
@@ -32,27 +34,29 @@ const io = socketIo(server);
 
 let interval;
 
-io.on("connection", socket => {
-	console.log("New client connected");
-	if(interval){
-		clearInterval(interval);
-	}
-	interval = setInterval(() => getApiAndEmit(socket), 15000);
-	socket.on("disconnect", () => {
-		console.log ("Client disconnected");
-	});
-});
+// io.on("connection", socket => {
+// 	console.log("New client connected");
+// 	if(interval){
+// 		clearInterval(interval);
+// 	}
+// 	interval = setInterval(() => getApiAndEmit(socket), 5000);
+// 	socket.on("disconnect", () => {
+// 		console.log ("Client disconnected");
+// 	});
+// });
 
-const getApiAndEmit = async socket => {
-  try {
-    const res = await axios.get(
-      "https://api.darksky.net/forecast/2c01f77672a17b368a2e056bfcdb2690/38.4095,-82.2946"
-    );
-    socket.emit("FromAPI", res.data.currently.temperature);
-  } catch (error) {
-    console.error(`Error: ${error.code}`);
-  }
-};
+// const getApiAndEmit = async socket => {
+//   try {
+//     const res = await axios.get(
+//       "https://api.darksky.net/forecast/2c01f77672a17b368a2e056bfcdb2690/38.4095,-82.2946"
+//     );
+//     socket.emit("FromAPI", res.data.currently.temperature);
+//   } catch (error) {
+//     console.error(`Error: ${error.code}`);
+//   }
+// };
+
+var db = mongojs('mongodb://localhost:27017/hh', ['users']);
 
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
