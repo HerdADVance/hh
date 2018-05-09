@@ -10,10 +10,10 @@ body {
 	text-align: center;
 	width: 100%;
 }
-.cards.p1{
+.p1 .cards{
 	top: 20px;
 }
-.cards.p2{
+.p2 .cards{
 	bottom: 20px;
 }
 .cards.flop{
@@ -24,6 +24,6 @@ body {
 	display: inline-block;
 	width: 100px;
 }
-.cards.p1 img.chosen{
+.p1 .cards img.chosen{
 	opacity: 0.5;
 }

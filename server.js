@@ -18,11 +18,11 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 var router = express.Router();
-var mongojs = require('mongojs');
+//var mongojs = require('mongojs');
 const axios = require ("axios");
 //const async = require("async");
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 const index = require('./src/routes/index');
 
 const app = express();
@@ -56,7 +56,10 @@ let interval;
 //   }
 // };
 
-var db = mongojs('mongodb://localhost:27017/hh', ['users']);
+//var db = mongojs('mongodb://localhost:27017/hh', ['users3']);
 
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
