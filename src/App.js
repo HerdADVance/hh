@@ -11,6 +11,7 @@ import './App.css';
 
 // COMPONENTS
 import Header from './components/Header/Header';
+import Authenticate from './components/Authenticate/Authenticate';
 import Game from './components/Game/Game';
 import PlayerOne from './components/Player/Player';
 import PlayerTwo from './components/Player/Player';
@@ -43,7 +44,10 @@ class App extends Component {
     return (
       <div className="App">
           <Header />
-          <Game />
+          <div className="main">
+            <Authenticate />
+            {/*<Game />*/}
+          </div>
           <Footer />
       </div>
     );

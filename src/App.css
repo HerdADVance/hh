@@ -1,5 +1,5 @@
 body {
-  background: mediumseagreen;
+  background: #EEE;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -18,7 +18,7 @@ a:hover{
   text-align: center;
 }
 .Header{
-  background: red;
+  background: mediumseagreen;
   height: 60px;
   line-height: 60px;
 }
@@ -30,7 +30,7 @@ a:hover{
   flex: 1;
 }
 .Footer{
-  background: red;
+  background: mediumseagreen;
   height: 40px;
   line-height: 40px
 }
