@@ -1,5 +1,10 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
 
+// CSS
+import './Game.css';
+
+// COMPONENTS
 import DECK from '../../constants/Deck';
 import PlayerOne from '../Player/Player';
 import PlayerTwo from '../Player/Player';
@@ -78,11 +83,11 @@ class Game extends Component{
 
   render(){
     return(
-      <div>
-        <PlayerOne 
+      <div className="main">
+        {/*<PlayerOne 
           hand={this.state.playerOneHand}
           playerNumber="p1"
-        />
+        />*/}
         <PlayerTwo
           hand={this.state.playerTwoHand}
           playerNumber="p2"

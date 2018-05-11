@@ -1,4 +1,4 @@
-/*.cards{
+.cards{
 	position: absolute;
 	text-align: center;
 	width: 100%;
@@ -20,4 +20,3 @@
 .p1 .cards img.chosen{
 	opacity: 0.5;
 }
-*/

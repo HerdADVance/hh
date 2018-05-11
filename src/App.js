@@ -10,51 +10,41 @@ import './App.css';
 //import DECK from './constants/Deck';
 
 // COMPONENTS
+import Header from './components/Header/Header';
 import Game from './components/Game/Game';
-//import PlayerOne from './components/Player/Player';
-//import PlayerTwo from './components/Player/Player';
+import PlayerOne from './components/Player/Player';
+import PlayerTwo from './components/Player/Player';
+import Footer from './components/Footer/Footer';
 
 
 // APP
 class App extends Component {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePlace: 0,
-      clicked: false,
-      timestamp: 'None yet',
-      response: false,
-      endpoint: "http://localhost:5000"
-    };
-    
-    // subscribeToTimer((err, timestamp) => this.setState({
-    //   timestamp
-    // }));
+  state = {
+    response: ''
   }
 
   componentDidMount(){
-    const {endpoint} = this.state;
-    //const socket = socketIOClient(endpoint);
-    //socket.on("FromAPI", data => this.setState({ response: data}));
+    this.callApi()
+      .then(res => this.setState({ response: res.express}))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/hello');
+    const body = await response.json();
+
+    if(response.status !== 200) throw Error(body.message);
+
+    return body;
   }
 
   render() {
-    const activePlace = this.state.activePlace;
-    const clicked = this.state.clicked
-    const {response} = this.state;
-
     return (
       <div className="App">
-          {/*<p>
-            This is the timer value: {this.state.timestamp}
-          </p>
-          {response
-          ? <p>
-              The temperature in Huntington is: {response} °F
-            </p>
-          : <p>Loading...</p>}*/}
+          <Header />
           <Game />
+          <Footer />
       </div>
     );
   }
