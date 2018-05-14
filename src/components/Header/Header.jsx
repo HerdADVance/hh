@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 // CSS
+import './Header.css';
 
 // CONSTANTS
 
@@ -19,8 +20,8 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="Header">
-          <a href="/">Huntington Hold'em</a>
+      <div className="Header wrap">
+          <a href="/" className="logo no-underline">Huntington Hold'em</a>
       </div>
     );
   }

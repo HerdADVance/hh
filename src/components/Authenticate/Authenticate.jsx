@@ -5,9 +5,7 @@ import React, { Component } from 'react';
 import './Authenticate.css';
 
 // COMPONENTS
-import DECK from '../../constants/Deck';
-import PlayerOne from '../Player/Player';
-import PlayerTwo from '../Player/Player';
+import Login from './Login';
 
 class Authenticate extends Component{
   constructor(props) {
@@ -22,12 +20,8 @@ class Authenticate extends Component{
 
   render(){
     return(
-      <div className="Authenticate">
-        <form>
-          <input type="text" placeholder="username" />
-          <input type="password" placeholder="password" />
-          <input type="submit" value="Login" />
-        </form>
+      <div className="Authenticate inner-wrap">
+        <Login />
       </div>
     )
   }

@@ -1,6 +1,10 @@
 .Authenticate{
 	background: #DDD;
 	border: 1px solid #333;
-	height: 400px;
-	width: 400px;
+	margin: 0px auto;
+	position: relative;
+	text-align: left;
+  	top: 50%;
+  	transform: translateY(50%);
+  	width: 500px;
 }

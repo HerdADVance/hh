@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 // CSS
+import './Footer.css';
 
 // CONSTANTS
 
@@ -19,8 +20,8 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="Footer">
-          <p>&copy;2018</p>
+      <div className="Footer wrap">
+          <p>&copy; 2018 Savage Industries</p>
       </div>
     );
   }

@@ -1,0 +1,12 @@
+.Header{
+  background: mediumseagreen;
+  height: 60px;
+  line-height: 60px;
+  text-align: left;
+}
+.Header a{
+  color: white;
+}
+.Header .logo{
+  font-size: 28px;
+}
