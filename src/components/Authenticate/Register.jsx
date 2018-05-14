@@ -2,14 +2,11 @@
 import React, { Component } from 'react';
 
 // CSS
-import './Login.css';
+import './Register.css';
 
 // COMPONENTS
-import DECK from '../../constants/Deck';
-import PlayerOne from '../Player/Player';
-import PlayerTwo from '../Player/Player';
 
-class Authenticate extends Component{
+class Register extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -20,19 +17,28 @@ class Authenticate extends Component{
     //this.shuffle(this.state.deck);
   }
 
+  handleLoginClick(){
+    alert("HEY");
+  }
+
   render(){
     return(
-      <div className="Authenticate inner-wrap">
+      <div>
         <form>
           <label for="username">Username</label>
           <input type="text" id="username" />
           <label for="password">Password</label>
           <input type="password" id="password" />
-          <input type="submit" value="Login" />
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" />
+          <input type="submit" value="Register" />
         </form>
+        <p>
+          <a href="#" onClick={this.handleLoginClick}>Login</a>
+        </p>
       </div>
     )
   }
 }
 
-export default Authenticate;
+export default Register;

@@ -6,11 +6,13 @@ import './Authenticate.css';
 
 // COMPONENTS
 import Login from './Login';
+import Register from './Register';
 
 class Authenticate extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      login: true
     }
   }
 
