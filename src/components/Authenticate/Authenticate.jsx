@@ -17,13 +17,27 @@ class Authenticate extends Component{
   }
 
   componentDidMount() {
-    //this.shuffle(this.state.deck);
+    //
+  }
+
+  showLoginForm = () => {
+    this.setState({login: true});
+  }
+
+  showRegisterForm = () => {
+    this.setState({login: false});
   }
 
   render(){
+    const login = this.state.login;
     return(
       <div className="Authenticate inner-wrap">
-        <Login />
+        {
+          login?
+            <Login login={true} triggerParentUpdate={this.showRegisterForm} />
+          :
+            <Register login={false} triggerParentUpdate={this.showLoginForm} />
+        }
       </div>
     )
   }

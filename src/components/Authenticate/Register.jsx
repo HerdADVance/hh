@@ -14,11 +14,7 @@ class Register extends Component{
   }
 
   componentDidMount() {
-    //this.shuffle(this.state.deck);
-  }
-
-  handleLoginClick(){
-    alert("HEY");
+    //
   }
 
   render(){
@@ -34,7 +30,7 @@ class Register extends Component{
           <input type="submit" value="Register" />
         </form>
         <p>
-          <a href="#" onClick={this.handleLoginClick}>Login</a>
+          <a href="#" onClick={this.props.triggerParentUpdate}>Login</a>
         </p>
       </div>
     )
