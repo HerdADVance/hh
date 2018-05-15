@@ -34,9 +34,9 @@ class Authenticate extends Component{
       <div className="Authenticate inner-wrap">
         {
           login?
-            <Login login={true} triggerParentUpdate={this.showRegisterForm} />
+            <Login triggerParentUpdate={this.showRegisterForm} />
           :
-            <Register login={false} triggerParentUpdate={this.showLoginForm} />
+            <Register triggerParentUpdate={this.showLoginForm} />
         }
       </div>
     )

@@ -21,12 +21,14 @@ class Register extends Component{
     return(
       <div>
         <form>
-          <label for="username">Username</label>
+          <label htmlFor="username">Username</label>
           <input type="text" id="username" />
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" id="password" />
-          <label for="confirm-password">Confirm Password</label>
+          <label htmlFor="confirm-password">Confirm Password</label>
           <input type="password" id="confirm-password" />
+          <label htmlFor="display">Display Name</label>
+          <input type="text" id="display-name" />
           <input type="submit" value="Register" />
         </form>
         <p>

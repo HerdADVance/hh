@@ -18,10 +18,14 @@ class Login extends Component{
     //
   }
 
+  handleFormSubmit(){
+    alert("submitted");
+  }
+
   render(){
     return(
     	<div>
-		    <form>
+		    <form onSubmit={this.handleFormSubmit}>
 		      <label htmlFor="username">Username</label>
 		      <input type="text" id="username" />
 		      <label htmlFor="password">Password</label>
