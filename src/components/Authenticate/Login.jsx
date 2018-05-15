@@ -9,8 +9,9 @@ import './Login.css';
 class Login extends Component{
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
+      username: '',
+      password: ''
     }
   }
 
@@ -18,8 +19,15 @@ class Login extends Component{
     //
   }
 
-  handleFormSubmit(){
-    alert("submitted");
+  handleUsernameChange = (e) => {
+    this.setState({username: e.target.value});
+  }
+  handlePasswordChange = (e) => {
+    this.setState({password: e.target.value});
+  }
+  handleFormSubmit = (e) =>{
+    e.preventDefault();
+    console.log(this.state);
   }
 
   render(){
@@ -27,9 +35,9 @@ class Login extends Component{
     	<div>
 		    <form onSubmit={this.handleFormSubmit}>
 		      <label htmlFor="username">Username</label>
-		      <input type="text" id="username" />
+		      <input type="text" id="username" onChange={this.handleUsernameChange}/>
 		      <label htmlFor="password">Password</label>
-		      <input type="password" id="password" />
+		      <input type="password" id="password" onChange={this.handlePasswordChange} />
 		      <input type="submit" value="Login" />
 		    </form>
 		    <p>
