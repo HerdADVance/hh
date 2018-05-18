@@ -16,10 +16,12 @@
 
 const express = require("express");
 const http = require("http");
+const mongoose = require('mongoose');
+const User = require('./src/models/User');
 const socketIo = require("socket.io");
 var router = express.Router();
+
 //var mongojs = require('mongojs');
-const axios = require ("axios");
 //const async = require("async");
 
 const port = process.env.PORT || 5000;
@@ -32,7 +34,6 @@ const server = http.createServer(app);
 
 const io = socketIo(server);
 
-let interval;
 
 // io.on("connection", socket => {
 // 	console.log("New client connected");
@@ -57,9 +58,28 @@ let interval;
 // };
 
 //var db = mongojs('mongodb://localhost:27017/hh', ['users3']);
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-server.listen(port, () => console.log(`Listening on port ${port}`));
+var mongoDB = 'mongodb://hhuser:dk7asAhey2hWH@ds123499.mlab.com:23499/hh'
+mongoose.connect(mongoDB);
+
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+var newUser = new User({ username: 'a', password: 'b', passwordConfirm: 'b', displayName: 'c' }).save();
+var newerUser = new User({ username: 'd', password: 'e', passwordConfirm: 'e', displayName: 'f' }).save();
+
+var users = User.find().pretty();
+console.log(users);
+
+
