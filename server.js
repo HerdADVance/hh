@@ -19,16 +19,42 @@ const http = require("http");
 const mongoose = require('mongoose');
 const User = require('./src/models/User');
 const socketIo = require("socket.io");
+const cors = require('cors');
 var router = express.Router();
 
 //var mongojs = require('mongojs');
 //const async = require("async");
 
+const axios = require('axios');
+
 const port = process.env.PORT || 5000;
 const index = require('./src/routes/index');
 
 const app = express();
+app.use(cors());
 app.use(index);
+
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
+app.set('views', './src/views')
+app.set('view engine', 'pug');
 
 const server = http.createServer(app);
 
@@ -66,20 +92,13 @@ app.get('/api/hello', (req, res) => {
 
 var mongoDB = 'mongodb://hhuser:dk7asAhey2hWH@ds123499.mlab.com:23499/hh'
 mongoose.connect(mongoDB);
-
-// Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
-//Get the default connection
 var db = mongoose.connection;
-//Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
+var newUser = new User({ username: 'herdadvance@gmail.com', password: 'b', passwordConfirm: 'b', displayName: 'BallSoHerd' }).save();
+var newerUser = new User({ username: 'avance@bulldogcreative.com', password: 'e', passwordConfirm: 'e', displayName: 'Bulldoggy Dawg' }).save();
 
-var newUser = new User({ username: 'a', password: 'b', passwordConfirm: 'b', displayName: 'c' }).save();
-var newerUser = new User({ username: 'd', password: 'e', passwordConfirm: 'e', displayName: 'f' }).save();
-
-var users = User.find().pretty();
-console.log(users);
 
 
