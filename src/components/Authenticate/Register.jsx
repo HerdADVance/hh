@@ -13,7 +13,7 @@ class Register extends Component{
     this.state = {
       username: '',
       password: '',
-      confirmPassword: '', 
+      passwordConfirm: '', 
       displayName: ''
     }
   }
@@ -29,7 +29,7 @@ class Register extends Component{
     this.setState({password: e.target.value});
   }
   handlePasswordConfirmChange = (e) => {
-    this.setState({confirmPassword: e.target.value});
+    this.setState({passwordConfirm: e.target.value});
   }
   handleDisplayNameChange = (e) => {
     this.setState({displayName: e.target.value});
@@ -50,8 +50,8 @@ class Register extends Component{
           <input type="text" id="username" onChange={this.handleUsernameChange} />
           <label htmlFor="password">Password</label>
           <input type="password" id="password" onChange={this.handlePasswordChange} />
-          <label htmlFor="confirm-password">Confirm Password</label>
-          <input type="password" id="confirm-password" onChange={this.handlePasswordConfirmChange} />
+          <label htmlFor="password-confirm">Confirm Password</label>
+          <input type="password" id="password-confirm" onChange={this.handlePasswordConfirmChange} />
           <label htmlFor="display">Display Name</label>
           <input type="text" id="display-name" onChange={this.handleDisplayNameChange} />
           <input type="submit" value="Register" />

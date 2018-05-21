@@ -13,10 +13,6 @@ var UserSchema = new Schema({
 		type: String,
 		require: true
 	},
-	passwordConfirm: {
-		type: String,
-		require: true
-	},
 	displayName: {
 		type: String,
 		require: true
@@ -45,16 +41,16 @@ var UserSchema = new Schema({
 // }
 
 // // Password hashing
-// UserSchema.pre('save', function(next){
-// 	var user = this;
-// 	bcrypt.hash(user.password, 10, function(err, hash){
-// 		if(err){
-// 			return next(err);
-// 		}
-// 		user.password = hash;
-// 		next();
-// 	})
-// });
+UserSchema.pre('save', function(next){
+	var user = this;
+	bcrypt.hash(user.password, 10, function(err, hash){
+		if(err){
+			return next(err);
+		}
+		user.password = hash;
+		next();
+	})
+});
 
 UserSchema
 .virtual('url')

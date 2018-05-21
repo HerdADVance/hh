@@ -16,31 +16,52 @@ exports.user_list = function(req, res, next){
 		});
 };
 
-exports.user_register = function(req, res){
+exports.user_register = function(req, res, next){
 
 	var username = req.body.username;
 	var password = req.body.password;
 	var passwordConfirm = req.body.passwordConfirm;
 	var displayName = req.body.displayName;
 
-	User.findOne({ username: username })
-		.exec(function(err, user){
-			if(err){
-				return cb(err);
-			} else if (user){
-				var err = new Error('Username already exists');
-				err.status = 401;
-				return cb(err);
-			}
-			bcrypt.compare(password, passwordConfirm, function(err, result){
-				if(result === true){
-					return cb(null, user);
-				} else{
-					return cb();
-				}
-			})
-		});
+	if(req.body.username && req.body.password && req.body.passwordConfirm && req.body.displayName){
+	
+		var userData = {
+			username: username,
+			password: password,
+			displayName: displayName
+		}
 
+		User.findOne({ username: username })
+			.exec(function(err, user){
+				if(err){
+					return next(err);
+				} else if (user){
+					var err = new Error('Username already exists');
+					err.status = 401;
+					return next(err);
+				}
+				if(password === passwordConfirm){
+					User.create(userData, function (err, user) {
+					    if (err) {
+					     	return next(err);
+					    } else {
+					    	console.log("User created");
+					     	return res.redirect('http://localhost:3000');
+
+					    }
+					});
+				} else{
+					var err = new Error('Passwords don\'t match');
+					err.status = 401;
+					return next(err);
+				}
+			});
+
+	} else{
+		var err = new Error('User data missing at least one field');
+		err.status = 401;
+		return next(err);
+	}
 
 
 	res.send("NEW USER DATA: " + req.body.username);

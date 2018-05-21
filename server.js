@@ -35,26 +35,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
 app.set('views', './src/views')
 app.set('view engine', 'pug');
 
@@ -88,6 +68,25 @@ const io = socketIo(server);
 //var db = mongojs('mongodb://localhost:27017/hh', ['users3']);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 const index = require('./src/routes/index');
 app.use(index);
 
@@ -100,10 +99,6 @@ mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-
-var newUser = new User({ username: 'herdadvance@gmail.com', password: 'b', passwordConfirm: 'b', displayName: 'BallSoHerd' }).save();
-var newerUser = new User({ username: 'avance@bulldogcreative.com', password: 'e', passwordConfirm: 'e', displayName: 'Bulldoggy Dawg' }).save();
 
 
 

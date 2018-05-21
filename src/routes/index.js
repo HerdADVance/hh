@@ -4,7 +4,7 @@ const router = express.Router();
 var user_controller = require('../controllers/userController');
 
 router.get('/', (req, res) => {
-	res.send({ response: "I am alive" }).status(200);
+	//res.send({ response: "I am alive" }).status(200);
 })
 
 router.get('/users', user_controller.user_list);
