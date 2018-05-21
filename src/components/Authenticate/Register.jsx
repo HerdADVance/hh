@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
+import axios from 'axios';
 
 // CSS
 import './Register.css';
@@ -33,15 +34,18 @@ class Register extends Component{
   handleDisplayNameChange = (e) => {
     this.setState({displayName: e.target.value});
   }
-  handleFormSubmit = (e) =>{
+  handleRegisterSubmit = (e) =>{
     e.preventDefault();
-    console.log(this.state);
+    axios.post('http://localhost:5000/users/new', this.state)
+        .then((result) => {
+          console.log(result.data);
+        });
   }
 
   render(){
     return(
       <div>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.handleRegisterSubmit} >
           <label htmlFor="username">Username</label>
           <input type="text" id="username" onChange={this.handleUsernameChange} />
           <label htmlFor="password">Password</label>

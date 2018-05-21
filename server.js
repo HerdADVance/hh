@@ -16,6 +16,7 @@
 
 const express = require("express");
 const http = require("http");
+var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./src/models/User');
 const socketIo = require("socket.io");
@@ -28,11 +29,12 @@ var router = express.Router();
 const axios = require('axios');
 
 const port = process.env.PORT || 5000;
-const index = require('./src/routes/index');
 
 const app = express();
 app.use(cors());
-app.use(index);
+app.use(bodyParser.json());
+app.use(express.json());
+
 
 app.use(function (req, res, next) {
 
@@ -86,9 +88,12 @@ const io = socketIo(server);
 //var db = mongojs('mongodb://localhost:27017/hh', ['users3']);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
+const index = require('./src/routes/index');
+app.use(index);
+
+// app.get('/api/hello', (req, res) => {
+//   res.send({ express: 'Hello From Express' });
+// });
 
 var mongoDB = 'mongodb://hhuser:dk7asAhey2hWH@ds123499.mlab.com:23499/hh'
 mongoose.connect(mongoDB);
