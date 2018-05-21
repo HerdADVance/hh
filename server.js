@@ -1,72 +1,38 @@
-// const io = require('socket.io')();
-
-// io.on('connection', (client) => {
-// 	client.on('subscribeToTimer', (interval) => {
-//     	console.log('client is subscribing to timer with interval ', interval);
-//     	setInterval(() => {
-//     		client.emit('timer', new Date());
-//     	}, interval);
-//   	});
-// });
-
-// const port = 3001;
-// io.listen(port);
-// console.log("listening on port " + port);
-
-
-const express = require("express");
-const http = require("http");
+// DEPENDENCIES
+var express = require("express");
+var http = require("http");
 var bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const User = require('./src/models/User');
-const socketIo = require("socket.io");
-const cors = require('cors');
+var mongoose = require('mongoose');
+var User = require('./src/models/User');
+var socketIo = require("socket.io");
+var cors = require('cors');
+var axios = require('axios');
+
 var router = express.Router();
 
-//var mongojs = require('mongojs');
-//const async = require("async");
+// ROUTES
+var index = require('./src/routes/index');
 
-const axios = require('axios');
+// APP
+var app = express();
 
-const port = process.env.PORT || 5000;
+// PORT
+var port = process.env.PORT || 5000;
 
-const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+// SET VIEW LOCATION AND ENGINE
 app.set('views', './src/views')
 app.set('view engine', 'pug');
 
+// SERVER
 const server = http.createServer(app);
-
-const io = socketIo(server);
-
-
-// io.on("connection", socket => {
-// 	console.log("New client connected");
-// 	if(interval){
-// 		clearInterval(interval);
-// 	}
-// 	interval = setInterval(() => getApiAndEmit(socket), 5000);
-// 	socket.on("disconnect", () => {
-// 		console.log ("Client disconnected");
-// 	});
-// });
-
-// const getApiAndEmit = async socket => {
-//   try {
-//     const res = await axios.get(
-//       "https://api.darksky.net/forecast/2c01f77672a17b368a2e056bfcdb2690/38.4095,-82.2946"
-//     );
-//     socket.emit("FromAPI", res.data.currently.temperature);
-//   } catch (error) {
-//     console.error(`Error: ${error.code}`);
-//   }
-// };
-
-//var db = mongojs('mongodb://localhost:27017/hh', ['users3']);
 server.listen(port, () => console.log(`Listening on port ${port}`));
+
+// USAGE OF ROUTES
+app.use(index);
 
 app.use(function (req, res, next) {
 
@@ -84,15 +50,10 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
+    return;
     next();
 });
 
-const index = require('./src/routes/index');
-app.use(index);
-
-// app.get('/api/hello', (req, res) => {
-//   res.send({ express: 'Hello From Express' });
-// });
 
 var mongoDB = 'mongodb://hhuser:dk7asAhey2hWH@ds123499.mlab.com:23499/hh'
 mongoose.connect(mongoDB);

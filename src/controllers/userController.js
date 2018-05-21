@@ -46,8 +46,7 @@ exports.user_register = function(req, res, next){
 					     	return next(err);
 					    } else {
 					    	console.log("User created");
-					     	return res.redirect('http://localhost:3000');
-
+					     	return res.send({redirect: '/'});
 					    }
 					});
 				} else{
