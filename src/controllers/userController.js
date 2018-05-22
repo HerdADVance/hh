@@ -1,5 +1,6 @@
 var User = require('../models/User');
 var bcrypt = require('bcrypt');
+var axios = require('axios');
 
 exports.user_detail = function(req, res){
 	res.send(req.params.id);
@@ -46,7 +47,7 @@ exports.user_register = function(req, res, next){
 					     	return next(err);
 					    } else {
 					    	console.log("User created");
-					     	return res.send({redirect: '/'});
+					    	return res.send("Redirect Router time");
 					    }
 					});
 				} else{
@@ -62,7 +63,5 @@ exports.user_register = function(req, res, next){
 		return next(err);
 	}
 
-
-	res.send("NEW USER DATA: " + req.body.username);
 };
 

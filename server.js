@@ -7,6 +7,8 @@ var User = require('./src/models/User');
 var socketIo = require("socket.io");
 var cors = require('cors');
 var axios = require('axios');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
 var router = express.Router();
 
@@ -20,8 +22,10 @@ var app = express();
 var port = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cookieParser());
 
 // SET VIEW LOCATION AND ENGINE
 app.set('views', './src/views')
@@ -50,8 +54,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
-    return;
-    next();
+    return next();
 });
 
 

@@ -7,6 +7,10 @@ router.get('/', (req, res) => {
 	//res.send({ response: "I am alive" }).status(200);
 })
 
+router.get('/abc', (req, res) => {
+	res.send({ response: "I am aliveee" }).status(200);
+})
+
 router.get('/users', user_controller.user_list);
 
 router.post('/users/new', user_controller.user_register);
