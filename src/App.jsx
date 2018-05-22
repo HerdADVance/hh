@@ -12,6 +12,7 @@ import './App.css';
 // COMPONENTS
 import Header from './components/Header/Header';
 import Authenticate from './components/Authenticate/Authenticate';
+import UserProfile from './components/UserProfile/UserProfile';
 import Game from './components/Game/Game';
 import PlayerOne from './components/Player/Player';
 import PlayerTwo from './components/Player/Player';
@@ -45,17 +46,19 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-          <Header />
-          <div className="main">
-            <Authenticate />
-            {/*<Game />*/}
-            <BrowserRouter>
-              <Route path="/game" component={Game} />
-            </BrowserRouter>
-          </div>
-          <Footer />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+            <Header />
+            <div className="main">
+              <Authenticate />
+              {/*<Game />*/}
+              <Route path="/game" render={({match}) => (
+                <User user={users.find(u => u.id) /} 
+              )}/>
+            </div>
+            <Footer />
+        </div>
+      </BrowserRouter>
     );
   }
 }
