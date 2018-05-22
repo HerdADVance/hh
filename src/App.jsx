@@ -17,6 +17,9 @@ import PlayerOne from './components/Player/Player';
 import PlayerTwo from './components/Player/Player';
 import Footer from './components/Footer/Footer';
 
+// ROUTER
+//import routes from './routes/routes';
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 // APP
 class App extends Component {
@@ -47,6 +50,9 @@ class App extends Component {
           <div className="main">
             <Authenticate />
             {/*<Game />*/}
+            <BrowserRouter>
+              <Route path="/game" component={Game} />
+            </BrowserRouter>
           </div>
           <Footer />
       </div>
