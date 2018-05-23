@@ -11,9 +11,9 @@ router.get('/abc', (req, res) => {
 	res.send({ response: "I am aliveee" }).status(200);
 })
 
-router.get('/users', user_controller.user_list);
+router.get('/api/users', user_controller.user_list);
 
-router.post('/users/new', user_controller.user_register);
+router.post('/api/users/new', user_controller.user_register);
 
 // router.get('/users', function(req, res, next) {
 //  	connection.query('SELECT * from users', function (error, results, fields) {

@@ -85,7 +85,6 @@ class Game extends Component{
   render(){
     return(
       <div className="main">
-        <Redirect to="/abc"/>
         {/*<PlayerOne 
           hand={this.state.playerOneHand}
           playerNumber="p1"

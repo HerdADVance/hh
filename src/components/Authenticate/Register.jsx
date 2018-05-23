@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 // CSS
@@ -14,7 +15,8 @@ class Register extends Component{
       username: '',
       password: '',
       passwordConfirm: '', 
-      displayName: ''
+      displayName: '',
+      redirect: false
     }
   }
 
@@ -36,15 +38,27 @@ class Register extends Component{
   }
   handleRegisterSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:5000/users/new', this.state)
+    axios.post('http://localhost:5000/api/users/new', this.state)
         .then((result) => {
           console.log(result.data);
+          this.setState({ 
+            redirect: result.data.redirect 
+          });
         });
   }
 
   render(){
+    const redirect = this.state.redirect;
+
     return(
       <div>
+        {
+          redirect?
+            <Redirect to={redirect} />
+          :
+          null
+        }
+
         <form onSubmit={this.handleRegisterSubmit} >
           <label htmlFor="username">Username</label>
           <input type="text" id="username" onChange={this.handleUsernameChange} />

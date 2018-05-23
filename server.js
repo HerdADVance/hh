@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser');
 var router = express.Router();
 
 // ROUTES
-var index = require('./src/routes/index');
+var api= require('./src/routes/index');
 
 // APP
 var app = express();
@@ -36,7 +36,7 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 // USAGE OF ROUTES
-app.use(index);
+app.use(api);
 
 app.use(function (req, res, next) {
 

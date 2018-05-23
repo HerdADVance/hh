@@ -47,7 +47,10 @@ exports.user_register = function(req, res, next){
 					     	return next(err);
 					    } else {
 					    	console.log("User created");
-					    	return res.send("Redirect Router time");
+					    	return res.send({
+					    		user: user,
+					    		redirect: '/user'
+					    	});
 					    }
 					});
 				} else{
