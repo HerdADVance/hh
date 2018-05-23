@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
 
 // CSS
 import './Game.css';
@@ -84,6 +85,7 @@ class Game extends Component{
   render(){
     return(
       <div className="main">
+        <Redirect to="/abc"/>
         {/*<PlayerOne 
           hand={this.state.playerOneHand}
           playerNumber="p1"

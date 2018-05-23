@@ -52,9 +52,7 @@ class App extends Component {
             <div className="main">
               <Authenticate />
               {/*<Game />*/}
-              <Route path="/game" render={({match}) => (
-                <User user={users.find(u => u.id) /} 
-              )}/>
+              <Route path="/game" component={Game}/>
             </div>
             <Footer />
         </div>

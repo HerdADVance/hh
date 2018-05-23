@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 // CSS
@@ -19,14 +20,7 @@ class Authenticate extends Component{
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/users').then(response => this.setState({users: response.data.user_list}));
-    //fetch('http://localhost:5000/users')
-      //.then(res => console.log(res))
-      //.then(users => {
-        //this.setState({users: users});
-        //.then(res => this.setState({ users: user_list}))
-        //console.log(users);
-      
+    axios.get('http://localhost:5000/users').then(response => this.setState({users: response.data.user_list}));  
   }
 
   showLoginForm = () => {
@@ -38,8 +32,10 @@ class Authenticate extends Component{
   }
 
   render(){
+
     const login = this.state.login;
     return(
+
       <div className="Authenticate inner-wrap">
         {
           login?
