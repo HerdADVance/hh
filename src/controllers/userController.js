@@ -48,8 +48,7 @@ exports.user_register = function(req, res, next){
 					    } else {
 					    	console.log("User created");
 					    	return res.send({
-					    		user: user,
-					    		redirect: '/user'
+					    		userId: user.id
 					    	});
 					    }
 					});

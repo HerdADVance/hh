@@ -16,7 +16,7 @@ class Register extends Component{
       password: '',
       passwordConfirm: '', 
       displayName: '',
-      redirect: false
+      returnedUserId: false
     }
   }
 
@@ -42,19 +42,19 @@ class Register extends Component{
         .then((result) => {
           console.log(result.data);
           this.setState({ 
-            redirect: result.data.redirect 
+            returnedUserId: result.data.userId,
           });
         });
   }
 
   render(){
-    const redirect = this.state.redirect;
+    const returnedUserId = this.state.returnedUserId;
 
     return(
       <div>
         {
-          redirect?
-            <Redirect to={redirect} />
+          returnedUserId?
+            <Redirect to={"/user/" + returnedUserId} />
           :
           null
         }
