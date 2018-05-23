@@ -13,6 +13,8 @@ router.get('/abc', (req, res) => {
 
 router.get('/api/users', user_controller.user_list);
 
+router.get('/api/user/:id', user_controller.user_profile);
+
 router.post('/api/users/new', user_controller.user_register);
 
 // router.get('/users', function(req, res, next) {
