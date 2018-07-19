@@ -17,6 +17,31 @@ exports.user_list = function(req, res, next){
 		});
 };
 
+exports.user_profile = function(req, res, next){
+
+	var userId = req.params.id;
+
+	console.log(userId);
+
+	User.findById(userId)
+		.exec(function(err, user){
+			if(err){
+				return next(err);
+			} else if (user){
+				return res.send({
+					user: {
+						username: user.username,
+						displayName: user.displayName
+					}
+				});
+			} else{
+				var err = new Error('User not found');
+				err.status = 401;
+				return next(err);
+			}
+		});
+}
+
 exports.user_register = function(req, res, next){
 
 	var username = req.body.username;
@@ -47,7 +72,9 @@ exports.user_register = function(req, res, next){
 					     	return next(err);
 					    } else {
 					    	console.log("User created");
-					    	return res.send("Redirect Router time");
+					    	return res.send({
+					    		userId: user.id
+					    	});
 					    }
 					});
 				} else{
@@ -64,4 +91,6 @@ exports.user_register = function(req, res, next){
 	}
 
 };
+
+
 

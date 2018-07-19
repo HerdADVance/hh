@@ -20,7 +20,7 @@ import Footer from './components/Footer/Footer';
 
 // ROUTER
 //import routes from './routes/routes';
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
 // APP
 class App extends Component {
@@ -50,9 +50,10 @@ class App extends Component {
         <div className="App">
             <Header />
             <div className="main">
-              <Authenticate />
-              {/*<Game />*/}
-              <Route path="/game" component={Game}/>
+              <Switch>
+                <Route exact path="/" component={Authenticate}/>
+                <Route path="/user/:id" component={UserProfile}/>
+              </Switch>
             </div>
             <Footer />
         </div>

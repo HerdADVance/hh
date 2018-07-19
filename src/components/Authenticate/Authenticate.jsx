@@ -20,7 +20,7 @@ class Authenticate extends Component{
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/users').then(response => this.setState({users: response.data.user_list}));  
+    axios.get('http://localhost:5000/api/users').then(response => this.setState({users: response.data.user_list}));  
   }
 
   showLoginForm = () => {

@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 // API CALLS
@@ -18,7 +19,8 @@ class Register extends Component{
       username: '',
       password: '',
       passwordConfirm: '', 
-      displayName: ''
+      displayName: '',
+      returnedUserId: false
     }
   }
 
@@ -39,6 +41,7 @@ class Register extends Component{
     this.setState({displayName: e.target.value});
   }
   handleRegisterSubmit = (e) =>{
+<<<<<<< HEAD
     e.preventDefault()
     const user = this.state
 
@@ -59,11 +62,30 @@ class Register extends Component{
     //       });
     //     });
 
+=======
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/users/new', this.state)
+        .then((result) => {
+          console.log(result.data);
+          this.setState({ 
+            returnedUserId: result.data.userId,
+          });
+        });
+>>>>>>> 4233d88b1c6cd17ae2de6f6fb45680c475fef551
   }
 
   render(){
+    const returnedUserId = this.state.returnedUserId;
+
     return(
       <div>
+        {
+          returnedUserId?
+            <Redirect to={"/user/" + returnedUserId} />
+          :
+          null
+        }
+
         <form onSubmit={this.handleRegisterSubmit} >
           <label htmlFor="username">Username</label>
           <input type="text" id="username" onChange={this.handleUsernameChange} />
