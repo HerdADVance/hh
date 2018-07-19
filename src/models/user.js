@@ -16,6 +16,10 @@ var UserSchema = new Schema({
 	displayName: {
 		type: String,
 		require: true
+	},
+	created: {
+		type: Date,
+		default: Date.now
 	}
 });
 

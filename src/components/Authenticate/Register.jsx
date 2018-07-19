@@ -2,8 +2,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// API CALLS
+import {create} from '../../api/user-api.js'
+
 // CSS
 import './Register.css';
+
 
 // COMPONENTS
 
@@ -35,11 +39,26 @@ class Register extends Component{
     this.setState({displayName: e.target.value});
   }
   handleRegisterSubmit = (e) =>{
-    e.preventDefault();
-    axios.post('http://localhost:5000/users/new', this.state)
-        .then((result) => {
-          console.log(result.data);
-        });
+    e.preventDefault()
+    const user = this.state
+
+    create(user).then((data) => {
+      if (data.error) {
+        //this.setState({error: data.error})
+      } else {
+          //this.setState({error: '', open: true})
+          console.log(data);
+      }
+    })
+
+    // axios.post('http://localhost:5000/api/users/register', this.state)
+    //     .then((result) => {
+    //       console.log(result.data);
+    //       this.setState({ 
+    //         returnedUserId: result.data.userId,
+    //       });
+    //     });
+
   }
 
   render(){
