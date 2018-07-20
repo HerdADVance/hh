@@ -41,37 +41,28 @@ class Register extends Component{
     this.setState({displayName: e.target.value});
   }
   handleRegisterSubmit = (e) =>{
-<<<<<<< HEAD
+
     e.preventDefault()
-    const user = this.state
+    
+    //const user = this.state
 
-    create(user).then((data) => {
-      if (data.error) {
-        //this.setState({error: data.error})
-      } else {
-          //this.setState({error: '', open: true})
-          console.log(data);
-      }
-    })
+    // create(user).then((data) => {
+    //   if (data.error) {
+    //     //this.setState({error: data.error})
+    //   } else {
+    //       //this.setState({error: '', open: true})
+    //       console.log(data);
+    //   }
+    // })
 
-    // axios.post('http://localhost:5000/api/users/register', this.state)
-    //     .then((result) => {
-    //       console.log(result.data);
-    //       this.setState({ 
-    //         returnedUserId: result.data.userId,
-    //       });
-    //     });
-
-=======
-    e.preventDefault();
     axios.post('http://localhost:5000/api/users/new', this.state)
         .then((result) => {
-          console.log(result.data);
+          console.log(result.data)
           this.setState({ 
             returnedUserId: result.data.userId,
-          });
-        });
->>>>>>> 4233d88b1c6cd17ae2de6f6fb45680c475fef551
+          })
+        })
+
   }
 
   render(){
