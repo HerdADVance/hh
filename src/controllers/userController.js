@@ -8,23 +8,47 @@ exports.user_detail = function(req, res){
 	res.send(req.params.id);
 };
 
+exports.user_login = function(req, res, next){
+	User.findOne({
+	    "username": req.body.username
+	}, (err, user) => {
+
+		console.log(user)
+
+	    if (err || !user)
+	      return res.status('401').json({
+	        error: "User not found"
+	      })
+
+	    if (!user.authenticate(req.body.password)) {
+	      return res.status('401').send({
+	        error: "Email and password don't match."
+	      })
+	    }
+
+		const token = jwt.sign({
+	      _id: 'fakeid'
+	    }, 'nibbler')
+
+	    res.cookie("t", token, {
+	      expire: new Date() + 9999
+	    })
+
+	    return res.send({
+	    	token: token,
+			user: {_id: user._id}
+		})
+    })
+}
+
 exports.user_list = function(req, res, next){
 
 	User.find()
 		.sort([['displayName', 'ascending']])
 		.exec(function (err, list_users) {
 			if(err) {return next(err);}
-			
-			const token = jwt.sign({
-		      _id: 'fakeid'
-		    }, 'nibbler')
-
-		    res.cookie("t", token, {
-		      expire: new Date() + 9999
-		    })
 
 			res.send({
-				token: token,
 				user_list: list_users
 			})
 		});

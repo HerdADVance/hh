@@ -62,4 +62,25 @@ UserSchema
   	return '/user/' + this._id;
 });
 
+UserSchema.methods = {
+  authenticate: function(plainText) {
+  	var user = this;
+  	bcrypt.hash(plainText, 10, function(err, hash){
+  		if(err){
+			return next(err);
+		}
+		console.log(user.password)
+		console.log(hash)
+		if (user.password === hash){
+			return true
+		} else return false
+	})
+  }
+}
+
 module.exports = mongoose.model('User', UserSchema);
+
+
+
+
+

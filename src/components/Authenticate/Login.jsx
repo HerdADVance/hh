@@ -1,5 +1,6 @@
 // DEPENDENCIES
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'
 
 // CSS
 import './Login.css';
@@ -15,8 +16,8 @@ class Login extends Component{
     }
   }
 
-  componentDidMount() {
-    //
+  componentDidMount = () => {
+       
   }
 
   handleUsernameChange = (e) => {
@@ -27,7 +28,13 @@ class Login extends Component{
   }
   handleFormSubmit = (e) =>{
     e.preventDefault();
-    console.log(this.state);
+    axios.post('http://localhost:5000/api/user/login', this.state)
+        .then((result) => {
+          console.log(result.data)
+          this.setState({ 
+            //returnedUserId: result.data.userId,
+          })
+        })
   }
 
   render(){
