@@ -1,6 +1,8 @@
 var User = require('../models/User');
 var bcrypt = require('bcrypt');
 var axios = require('axios');
+var jwt = require('jsonwebtoken')
+var expressJwt = require('express-jwt')
 
 exports.user_detail = function(req, res){
 	res.send(req.params.id);
@@ -12,9 +14,22 @@ exports.user_list = function(req, res, next){
 		.sort([['displayName', 'ascending']])
 		.exec(function (err, list_users) {
 			if(err) {return next(err);}
-			//res.render('user_list', {title: 'User List', user_list: list_users});
-			res.send({user_list: list_users})
+			
+			const token = jwt.sign({
+		      _id: 'fakeid'
+		    }, 'nibbler')
+
+		    res.cookie("t", token, {
+		      expire: new Date() + 9999
+		    })
+
+			res.send({
+				token: token,
+				user_list: list_users
+			})
 		});
+
+
 };
 
 exports.user_profile = function(req, res, next){
