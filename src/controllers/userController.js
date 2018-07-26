@@ -20,13 +20,12 @@ exports.user_login = function(req, res, next){
 
 	  	const doesMatch = user.authenticate(req.body.password).then(function(e){
 	  		if(!e){
-	  			console.log("Unsuccessful")
 		  		return res.status('401').send({
 					error: "Email and password don't match."
 				})
 	  		} else{
   				const token = jwt.sign({
-  			      _id: 'fakeid'
+  			      _id: user._id
   			    }, 'nibbler')
 
   			    res.cookie("t", token, {

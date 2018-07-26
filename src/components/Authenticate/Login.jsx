@@ -6,6 +6,7 @@ import axios from 'axios'
 import './Login.css';
 
 // COMPONENTS
+import auth from './authenticate-helper.js'
 
 class Login extends Component{
   constructor(props) {
@@ -30,9 +31,12 @@ class Login extends Component{
     e.preventDefault();
     axios.post('http://localhost:5000/api/user/login', this.state)
         .then((result) => {
-          console.log(result.data)
-          this.setState({ 
-            //returnedUserId: result.data.userId,
+          //const token = result.data.token
+          auth.authenticate(result.data, () => {
+            console.log("back in callback")
+            this.setState({ 
+              //returnedUserId: result.data.userId,
+            })
           })
         })
   }
