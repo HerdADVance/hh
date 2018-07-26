@@ -66,13 +66,8 @@ UserSchema.methods = {
 	authenticate: async function(plainText) {
   		var user = this;
 
-		return await this.checkPasswords(plainText, user.password)
-		//return await result
+		return bcrypt.compare(plainText, user.password)
 
-	},
-	checkPasswords: async function(hash, password){
-		const result = await bcrypt.compare(hash, password)
-		return result
 	}
 }
 

@@ -13,54 +13,34 @@ exports.user_login = function(req, res, next){
 	    "username": req.body.username
 	}, (err, user) => {
 
-		console.log(user)
-
 	    if (err || !user)
 	      return res.status('401').json({
 	        error: "User not found"
 	      })
 
-	  	// async function doPasswordsMatch(cb){
-	  	// 	try{
-	  	// 		const match = await user.authenticate(req.body.password)
-	  	// 		if(match) return cb(true)
-	  	// 	}
+	  	const doesMatch = user.authenticate(req.body.password).then(function(e){
+	  		if(!e){
+	  			console.log("Unsuccessful")
+		  		return res.status('401').send({
+					error: "Email and password don't match."
+				})
+	  		} else{
+  				const token = jwt.sign({
+  			      _id: 'fakeid'
+  			    }, 'nibbler')
 
-	  	// async function doesMatch(){
-	  	// 	const result = await user.authenticate(req.body.password)
-	  	// 	if(result) return ("RESULT!")
-	  	// 		else return ("NO RESULT")
-	  	// }
+  			    res.cookie("t", token, {
+  			      expire: new Date() + 9999
+  			    })
 
-
-	  // var what = doesMatch
-	  // console.log(what)
-
-	    
-	  	if(!user.authenticate(req.body.password)){
-	  		return res.status('401').send({
-				error: "Email and password don't match."
-			})
-	  	}
-
-	    // if (!user.authenticate(req.body.password)) {
-	    //   return res.status('401').send({
-	    //     error: "Email and password don't match."
-	    //   })
-	    // }
-
-		const token = jwt.sign({
-	      _id: 'fakeid'
-	    }, 'nibbler')
-
-	    res.cookie("t", token, {
-	      expire: new Date() + 9999
-	    })
-
-	    return res.send({
-	    	token: token,
-			user: {_id: user._id}
-		})
+  			    return res.send({
+  			    	token: token,
+  					user: {_id: user._id}
+  				})
+	  		}
+	  	}).catch(function(error){
+	  		console.log("Promise error: " + error)
+	  	})
     })
 }
 
