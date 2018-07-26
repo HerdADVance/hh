@@ -52,6 +52,7 @@ class App extends Component {
             <div className="main">
               <Switch>
                 <Route exact path="/" component={Authenticate}/>
+                <Route exact path="/game" component={Game}/>
                 <Route path="/user/:id" component={UserProfile}/>
               </Switch>
             </div>
