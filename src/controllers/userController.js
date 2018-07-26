@@ -20,11 +20,34 @@ exports.user_login = function(req, res, next){
 	        error: "User not found"
 	      })
 
-	    if (!user.authenticate(req.body.password)) {
-	      return res.status('401').send({
-	        error: "Email and password don't match."
-	      })
-	    }
+	  	// async function doPasswordsMatch(cb){
+	  	// 	try{
+	  	// 		const match = await user.authenticate(req.body.password)
+	  	// 		if(match) return cb(true)
+	  	// 	}
+
+	  	// async function doesMatch(){
+	  	// 	const result = await user.authenticate(req.body.password)
+	  	// 	if(result) return ("RESULT!")
+	  	// 		else return ("NO RESULT")
+	  	// }
+
+
+	  // var what = doesMatch
+	  // console.log(what)
+
+	    
+	  	if(!user.authenticate(req.body.password)){
+	  		return res.status('401').send({
+				error: "Email and password don't match."
+			})
+	  	}
+
+	    // if (!user.authenticate(req.body.password)) {
+	    //   return res.status('401').send({
+	    //     error: "Email and password don't match."
+	    //   })
+	    // }
 
 		const token = jwt.sign({
 	      _id: 'fakeid'

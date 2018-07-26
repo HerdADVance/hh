@@ -63,19 +63,17 @@ UserSchema
 });
 
 UserSchema.methods = {
-  authenticate: function(plainText) {
-  	var user = this;
-  	bcrypt.hash(plainText, 10, function(err, hash){
-  		if(err){
-			return next(err);
-		}
-		console.log(user.password)
-		console.log(hash)
-		if (user.password === hash){
-			return true
-		} else return false
-	})
-  }
+	authenticate: async function(plainText) {
+  		var user = this;
+
+		return await this.checkPasswords(plainText, user.password)
+		//return await result
+
+	},
+	checkPasswords: async function(hash, password){
+		const result = await bcrypt.compare(hash, password)
+		return result
+	}
 }
 
 module.exports = mongoose.model('User', UserSchema);
