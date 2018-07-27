@@ -10,13 +10,15 @@ import './App.css';
 //import DECK from './constants/Deck';
 
 // COMPONENTS
-import Header from './components/Header/Header';
-import Authenticate from './components/Authenticate/Authenticate';
-import UserProfile from './components/UserProfile/UserProfile';
-import Game from './components/Game/Game';
-import PlayerOne from './components/Player/Player';
-import PlayerTwo from './components/Player/Player';
-import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header'
+import Authenticate from './components/Authenticate/Authenticate'
+import auth from './components/Authenticate/authenticate-helper'
+import PrivateRoute from './components/Authenticate/authenticate-private-route'
+import UserProfile from './components/UserProfile/UserProfile'
+import Game from './components/Game/Game'
+import PlayerOne from './components/Player/Player'
+import PlayerTwo from './components/Player/Player'
+import Footer from './components/Footer/Footer'
 
 // ROUTER
 //import routes from './routes/routes';
@@ -51,7 +53,8 @@ class App extends Component {
             <Header />
             <div className="main">
               <Switch>
-                <Route exact path="/" component={Authenticate}/>
+                <Route exact path="/login" component={Authenticate}/>
+                <PrivateRoute exact path="/" component={Game} />
                 <Route exact path="/game" component={Game}/>
                 <Route path="/user/:id" component={UserProfile}/>
               </Switch>
