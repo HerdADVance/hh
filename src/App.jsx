@@ -15,6 +15,7 @@ import Authenticate from './components/Authenticate/Authenticate'
 import auth from './components/Authenticate/authenticate-helper'
 import PrivateRoute from './components/Authenticate/authenticate-private-route'
 import UserProfile from './components/UserProfile/UserProfile'
+import Dashboard from './components/Dashboard/Dashboard'
 import Game from './components/Game/Game'
 import PlayerOne from './components/Player/Player'
 import PlayerTwo from './components/Player/Player'
@@ -54,7 +55,7 @@ class App extends Component {
             <div className="main">
               <Switch>
                 <Route exact path="/login" component={Authenticate}/>
-                <PrivateRoute exact path="/" component={Game} />
+                <PrivateRoute exact path="/" component={Dashboard} />
                 <Route exact path="/game" component={Game}/>
                 <Route path="/user/:id" component={UserProfile}/>
               </Switch>

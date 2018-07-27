@@ -1,5 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 
 // CSS
@@ -13,7 +14,8 @@ class Login extends Component{
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      redirect: false
     }
   }
 
@@ -29,19 +31,27 @@ class Login extends Component{
   }
   handleFormSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:5000/api/user/login', this.state)
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    axios.post('http://localhost:5000/api/user/login', user)
         .then((result) => {
-          //const token = result.data.token
           auth.authenticate(result.data, () => {
-            console.log("back in callback")
             this.setState({ 
-              //returnedUserId: result.data.userId,
+              redirect: '/'
             })
           })
         })
   }
 
   render(){
+
+    const {redirect} = this.state
+    if (redirect) {
+      return (<Redirect to={redirect}/>)
+    }
+
     return(
     	<div>
 		    <form onSubmit={this.handleFormSubmit}>
