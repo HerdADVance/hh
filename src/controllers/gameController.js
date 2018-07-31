@@ -9,14 +9,14 @@ exports.game_join = function(req, res, next){
 
 	console.log(req.body.userId)
 
-	const game = new Game();
+	const game = new Game()
 	game.save((err, result) => {
 		if(err){
 			return res.status(400).json({
 				error: "ERROR"
 			})
 		}
-		res.status(200).json({
+		return res.status(200).json({
 			message: "New game!"
 		})
 	})
