@@ -13,9 +13,11 @@ exports.game_join = function(req, res, next){
 	//const userId = req.body.userId
 	const userId = '5b5001dbd68f1b70faaaa120'
 
-	Game.findOne().sort({created_at: -1}).exec(function(err, foundGame) {
+	Game.findOne().sort({created: -1}).exec(function(err, foundGame) {
 
-		if(foundGame && foundGame.status == 'launching'){
+		console.log(foundGame)
+
+		if(foundGame && foundGame.status == 'waiting'){
 
 			const foundId = foundGame._id
 
