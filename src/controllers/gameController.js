@@ -22,6 +22,7 @@ exports.game_join = function(req, res, next){
 			const foundId = foundGame._id
 
 			// Prevent user from joining same game
+			// Prevent Schema from ever allowing 3 users in a game
 
 			const player = new Player()
 			player.user = userId
