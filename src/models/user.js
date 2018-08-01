@@ -56,11 +56,11 @@ UserSchema.pre('save', function(next){
 	})
 });
 
-UserSchema
-.virtual('url')
-.get(function () {
-  	return '/user/' + this._id;
-});
+// UserSchema
+// .virtual('url')
+// .get(function () {
+//   	return '/user/' + this._id;
+// });
 
 UserSchema.methods = {
 	authenticate: async function(plainText) {

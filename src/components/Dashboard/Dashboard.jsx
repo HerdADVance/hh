@@ -26,7 +26,7 @@ class Dashboard extends Component{
     e.preventDefault();
     axios.post('http://localhost:5000/api/game/join', {userId: 'userId'})
         .then((result) => {
-          console.log(result)
+          console.log(result.data.message)
         })
   }
 

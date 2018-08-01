@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 //var User = require('./user')
 
 var PlayerSchema = new Schema({
-	// user: {
-	// 	type: Schema.Types.ObjectId,
-	// 	ref: 'User'
-	// },
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'User'
+	},
 	game: {
 		type: Schema.Types.ObjectId,
 		ref: 'Game'
