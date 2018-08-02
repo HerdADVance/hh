@@ -54,12 +54,26 @@
 	margin-top: -20px;
 }
 .auth-switch a{
-	color: white;
-	font-size: 18px;
+	color: mediumseagreen;
+	font-size: 16px;
 }
 .auth-box input[type=submit]{
 	font-size: 20px;
 	margin: 40px -30px 0 -30px; 
 	width: calc(100% + 60px);
+}
+
+@media only screen and (max-width: 1000px){
+	.auth-column{
+		text-align: center;
+		width: 100%;
+	}
+	.auth-title{
+		font-size: 60px;
+		line-height: 60px;
+	}
+	.auth-subtitle{
+		font-size: 24px;
+	}
 }
 
