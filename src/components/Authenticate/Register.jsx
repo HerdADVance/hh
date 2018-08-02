@@ -69,14 +69,16 @@ class Register extends Component{
     const returnedUserId = this.state.returnedUserId;
 
     return(
-      <div class="auth-box">
+      <div className="auth-box">
         {
           returnedUserId?
             <Redirect to={"/user/" + returnedUserId} />
           :
           null
         }
-
+        <p className="auth-switch">
+          <a href="#" onClick={this.props.triggerParentUpdate}>Login</a>
+        </p>
         <form onSubmit={this.handleRegisterSubmit} >
           <label htmlFor="username">Username</label>
           <input type="text" id="username" onChange={this.handleUsernameChange} />
@@ -88,9 +90,6 @@ class Register extends Component{
           <input type="text" id="display-name" onChange={this.handleDisplayNameChange} />
           <input type="submit" value="Register" />
         </form>
-        <p>
-          <a href="#" onClick={this.props.triggerParentUpdate}>Login</a>
-        </p>
       </div>
     )
   }

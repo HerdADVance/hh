@@ -54,6 +54,9 @@ class Login extends Component{
 
     return(
     	<div className="auth-box">
+        <p className="auth-switch">
+          <a href="#" onClick={this.props.triggerParentUpdate}>Register</a>
+        </p>
 		    <form onSubmit={this.handleFormSubmit}>
 		      <label htmlFor="username">Username</label>
 		      <input type="text" id="username" onChange={this.handleUsernameChange}/>
@@ -61,9 +64,6 @@ class Login extends Component{
 		      <input type="password" id="password" onChange={this.handlePasswordChange} />
 		      <input type="submit" value="Login" />
 		    </form>
-		    {/*<p>
-		    	<a href="#" onClick={this.props.triggerParentUpdate}>Register</a>
-		    </p>*/}
 	    </div>
     )
   }

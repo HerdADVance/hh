@@ -24,8 +24,6 @@
 }
 
 /* LOGIN SPLASH INFO */
-.auth-splash{
-}
 .auth-title{
 	font-size: 112px;
 	font-weight: bold;
@@ -39,6 +37,11 @@
 }
 
 /* LOGIN/REGISTER FORM*/
+.auth-info{
+	float: right;
+	text-align: center;
+	width: 40%;
+}
 .auth-box{
 	background: darkgreen;
 	border-top-left-radius: 8px;
@@ -46,10 +49,13 @@
 	box-shadow: 3px 7px 10px #000;
 	padding: 30px 30px 0 30px;
 }
-.auth-info{
+.auth-switch{
 	float: right;
-	text-align: center;
-	width: 40%;
+	margin-top: -20px;
+}
+.auth-switch a{
+	color: white;
+	font-size: 18px;
 }
 .auth-box input[type=submit]{
 	font-size: 20px;
