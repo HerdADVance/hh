@@ -15,7 +15,7 @@ exports.game_join = function(req, res, next){
 
 	Game.findOne().sort({created: -1}).exec(function(err, foundGame) {
 
-		console.log(foundGame)
+		//console.log(foundGame)
 
 		if(foundGame && foundGame.status == 'waiting'){
 
@@ -28,8 +28,11 @@ exports.game_join = function(req, res, next){
 			player.user = userId
 			player.game = foundId
 
+			//Save player
+
 			foundGame.players.push(player)
 			const newPlayers = foundGame.players
+			console.log("PLAYERS: " + newPlayers)
 			const newStatus = 'launching'
 
 			Game.update({ _id: foundId}, {players: newPlayers, status: newStatus}, () => {
