@@ -15,8 +15,6 @@ exports.game_join = function(req, res, next){
 
 	Game.findOne().sort({created: -1}).exec(function(err, foundGame) {
 
-		//console.log(foundGame)
-
 		if(foundGame && foundGame.status == 'waiting'){
 
 			const foundId = foundGame._id
@@ -28,23 +26,34 @@ exports.game_join = function(req, res, next){
 			player.user = userId
 			player.game = foundId
 
-			//Save player
+			player.save((err, newPlayer) => {
+				if(err){
+					return res.status(400).json({
+						error: "Error saving player"
+					})
+				}
 
-			foundGame.players.push(player)
-			const newPlayers = foundGame.players
-			console.log("PLAYERS: " + newPlayers)
-			const newStatus = 'launching'
+				foundGame.players.push(player)
+				const newPlayers = foundGame.players
+				const newStatus = 'launching'
 
-			Game.update({ _id: foundId}, {players: newPlayers, status: newStatus}, () => {
-				
-				// Deal Cards
+				Game.update({ _id: foundId}, {players: newPlayers, status: newStatus}, () => {
+					if(err){
+						return res.status(400).json({
+							error: "Error updating game"
+						})
+					}
+					// Deal Cards
 
-				// Update View to launch game
+					// Update View to launch game
 
-				return res.status(200).json({
-					message: "2nd player added to Game!"
-				})
-			});
+					return res.status(200).json({
+						message: "2nd player added to Game!"
+					})
+				});
+			})
+
+			
 
 		} else{
 
@@ -57,7 +66,7 @@ exports.game_join = function(req, res, next){
 			player.save((err, newPlayer) => {
 				if(err){
 					return res.status(400).json({
-						error: "ERROR"
+						error: "Error saving player"
 					})
 				}
 
@@ -68,7 +77,7 @@ exports.game_join = function(req, res, next){
 					if(err){
 						console.log(err)
 						return res.status(400).json({
-							error: "ERROR"
+							error: "Error saving game"
 						})
 					}
 
