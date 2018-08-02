@@ -41,16 +41,19 @@ class Authenticate extends Component{
         const login = this.state.login;
         return(
 
-          <div className="Authenticate inner-wrap">
-            {
-              login?
-                <Login triggerParentUpdate={this.showRegisterForm} />
-              :
-                <Register triggerParentUpdate={this.showLoginForm} />
-            }
-            {this.state.users.map(user => 
-              <div>{user.displayName}</div>
-            )}
+            <div className="auth">
+                <div className="auth-splash">
+                    <h1 className="auth-title">Huntington<br/>Hold'em</h1>
+                    <h2 className="auth-subtitle">Ten cards. Two minutes. Win cash.</h2>
+                </div>
+                <div className="auth-info">
+                {
+                  login?
+                    <Login triggerParentUpdate={this.showRegisterForm} />
+                  :
+                    <Register triggerParentUpdate={this.showLoginForm} />
+                }
+                </div>
           </div>
         )
     }

@@ -7,3 +7,29 @@
   	top: 50px;
   	width: 500px;
 }
+
+.auth{
+	overflow: auto;
+}
+.auth-splash{
+	align-items: center;
+	box-sizing: border-box;
+	float: left;
+	height: 100vh;
+	margin: 16% 5% 0 5%;
+	text-align: left;
+	width: 66.6666%;
+}
+.auth-info{
+	float: right;
+	width: 33.3333%;
+}
+
+.auth-title{
+	color: white;
+	font-size: 72px;
+}
+.auth-subtitle{
+	color: white;
+	font-size: 32px;
+}
