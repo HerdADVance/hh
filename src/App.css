@@ -34,7 +34,7 @@ input{
   padding: 5px 8px;
   width: 100%;
 }
-input[type=submit]{
+input[type=submit], button{
   background: mediumseagreen;
   color: white;
   cursor: pointer;
@@ -48,6 +48,11 @@ input[type=submit]:hover{
 label{
   display: block;
   text-align: left;
+}
+button{
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
 .inner-wrap{
@@ -71,4 +76,7 @@ label{
 .main{
   background: linear-gradient(45deg, #3D9C4B, #146921);
   flex: 1;
+}
+.main-wrap{
+  margin: 60px 0;
 }

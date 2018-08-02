@@ -33,8 +33,17 @@ class Dashboard extends Component{
   render(){
 
     return(
-    	<div>
-		      <button onClick={this.handleCreateClick}>Create a New Game</button>
+    	<div className="main-wrap">
+        <div className="dash-column">
+          <h1>Games</h1>
+          <button onClick={this.handleCreateClick}>Create a New Game</button>
+        </div>
+        <div className="dash-column">
+          <h1>Friends</h1>
+        </div>
+        <div className="dash-column">
+          <h1>Stats</h1>
+        </div>
 	    </div>
     )
   }
