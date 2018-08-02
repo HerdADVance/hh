@@ -69,7 +69,7 @@ class Register extends Component{
     const returnedUserId = this.state.returnedUserId;
 
     return(
-      <div>
+      <div class="auth-box">
         {
           returnedUserId?
             <Redirect to={"/user/" + returnedUserId} />

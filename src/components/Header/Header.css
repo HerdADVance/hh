@@ -1,8 +1,11 @@
 .Header{
-  background: mediumseagreen;
-  height: 60px;
-  line-height: 60px;
+  background: #000;
+  height: 45px;
+  line-height: 45px;
+  position: fixed;
   text-align: left;
+  top: 0;
+  width: 100%;
 }
 .Header a{
   color: white;

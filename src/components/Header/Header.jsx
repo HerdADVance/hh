@@ -21,7 +21,7 @@ class Header extends Component {
   render() {
     return (
       <div className="Header wrap">
-          <a href="/" className="logo no-underline">Huntington Hold'em</a>
+          <a href="/" className="logo no-underline"></a>
       </div>
     );
   }

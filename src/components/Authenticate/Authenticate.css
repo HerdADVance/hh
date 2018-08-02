@@ -11,25 +11,49 @@
 .auth{
 	overflow: auto;
 }
-.auth-splash{
-	align-items: center;
+.auth-column{
 	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
 	float: left;
 	height: 100vh;
-	margin: 16% 5% 0 5%;
+	justify-content: center;
+	padding: 0 5%;
 	text-align: left;
-	width: 66.6666%;
+	width: 60%;
+}
+
+/* LOGIN SPLASH INFO */
+.auth-splash{
+}
+.auth-title{
+	font-size: 112px;
+	font-weight: bold;
+	line-height: 112px;
+	margin-top: -20px;
+}
+.auth-subtitle{
+	font-size: 36px;
+	font-weight: 300;
+	margin-top: 24px;
+}
+
+/* LOGIN/REGISTER FORM*/
+.auth-box{
+	background: darkgreen;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	box-shadow: 3px 7px 10px #000;
+	padding: 30px 30px 0 30px;
 }
 .auth-info{
 	float: right;
-	width: 33.3333%;
+	text-align: center;
+	width: 40%;
+}
+.auth-box input[type=submit]{
+	font-size: 20px;
+	margin: 40px -30px 0 -30px; 
+	width: calc(100% + 60px);
 }
 
-.auth-title{
-	color: white;
-	font-size: 72px;
-}
-.auth-subtitle{
-	color: white;
-	font-size: 32px;
-}

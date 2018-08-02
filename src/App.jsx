@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 
 // CSS
+import './fonts.css';
+import './normalize.css';
 import './App.css';
+
 
 // CONSTANTS
 //import DECK from './constants/Deck';
@@ -51,7 +54,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-            {/*<Header />*/}
+            <Header />
             <div className="main">
               <Switch>
                 <Route exact path="/login" component={Authenticate}/>
@@ -60,7 +63,7 @@ class App extends Component {
                 <Route path="/user/:id" component={UserProfile}/>
               </Switch>
             </div>
-            {/*<Footer />*/}
+            <Footer />
         </div>
       </BrowserRouter>
     );

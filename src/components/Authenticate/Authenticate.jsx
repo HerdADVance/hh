@@ -42,11 +42,11 @@ class Authenticate extends Component{
         return(
 
             <div className="auth">
-                <div className="auth-splash">
+                <div className="auth-column auth-splash">
                     <h1 className="auth-title">Huntington<br/>Hold'em</h1>
                     <h2 className="auth-subtitle">Ten cards. Two minutes. Win cash.</h2>
                 </div>
-                <div className="auth-info">
+                <div className="auth-column auth-info">
                 {
                   login?
                     <Login triggerParentUpdate={this.showRegisterForm} />

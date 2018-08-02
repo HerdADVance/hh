@@ -15,8 +15,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   box-sizing: border-box;
 }
 body {
-  background: #EEE;
-  font-family: sans-serif;
+  color: whitesmoke;
+  font-family: 'Muli', sans-serif;
 }
 
 a{
@@ -27,7 +27,7 @@ a:hover{
 }
 
 input{
-  color: #999;
+  color: #000;
   display: block;
   height: 40px;
   margin: 5px 0 15px;
@@ -38,16 +38,23 @@ input[type=submit]{
   background: mediumseagreen;
   color: white;
   cursor: pointer;
+  font-size: 20px;
+  height: auto;
+  padding: 12px;
+}
+input[type=submit]:hover{
+  background: #3D9C4B;
 }
 label{
-  font-weight: bold;
+  display: block;
+  text-align: left;
 }
 
 .inner-wrap{
   padding: 15px 30px;
 }
 .wrap{
-  padding: 0 10%;
+  padding: 0 5%;
 }
 .no-underline:hover{
   text-decoration: none;
@@ -62,6 +69,6 @@ label{
 
 
 .main{
-  background: mediumseagreen;
+  background: linear-gradient(#3D9C4B , #146921);
   flex: 1;
 }

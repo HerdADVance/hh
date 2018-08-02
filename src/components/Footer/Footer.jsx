@@ -21,7 +21,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="Footer wrap">
-          <p>&copy; 2018 Savage Industries</p>
+          <p>&copy; 2018 Savage Squad</p>
       </div>
     );
   }
