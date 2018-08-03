@@ -12,9 +12,7 @@ class Dashboard extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      redirect: false
+      canStartGame: true
     }
   }
 
@@ -27,17 +25,25 @@ class Dashboard extends Component{
     const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
     axios.post('http://localhost:5000/api/game/join', {userId: userId})
         .then((result) => {
+          this.setState({canStartGame: false})
           console.log(result.data.message)
         })
   }
 
   render(){
-
+    const canStartGame = this.state.canStartGame
     return(
     	<div className="main-wrap">
         <div className="dash-column">
           <h1>Games</h1>
-          <button onClick={this.handleCreateClick}>Create a New Game</button>
+          <button onClick={this.handleCreateClick}>
+            {
+              canStartGame?
+                "Create a Game"
+              :
+                "Waiting on 2nd player"
+            }
+          </button>
         </div>
         <div className="dash-column">
           <h1>Friends</h1>

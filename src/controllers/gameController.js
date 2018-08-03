@@ -12,6 +12,8 @@ exports.game_join = function(req, res, next){
 
 	const userId = req.body.userId
 
+	// TO DO: change User's CanStartGame to true
+
 	Game.findOne().sort({created: -1}).exec(function(err, foundGame) {
 
 		// Most recently created game has status of "waiting" meaning it should have 1 player and is waiting on a 2nd
@@ -64,6 +66,8 @@ exports.game_join = function(req, res, next){
 
 		} else{
 
+			// TO DO: change User's CanStartGame to false
+
 			// Create new game instance
 			const game = new Game()
 
@@ -96,7 +100,7 @@ exports.game_join = function(req, res, next){
 					// Update view for waiting user
 
 					return res.status(200).json({
-						message: "New game!"
+						message: "Your game will start as soon as a 2nd player joins."
 					})
 				})
 			})
