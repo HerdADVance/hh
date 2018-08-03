@@ -1,5 +1,6 @@
 .dash-column{
 	float: left;
+	height: calc(100% - 120px);
 	padding: 0 3%;
 	width: 33.3333%;
 }
@@ -7,4 +8,23 @@
 	font-size: 24px;
 	font-weight: bold;
 	margin-bottom: 20px;
+}
+
+.games{
+	height: 100%;
+	width: 100%;
+}
+.games th{
+	background: #FFF;
+	border: 1px solid #FFF;
+	color: #000;
+	font-size: 16px;
+	padding: 8px;
+}
+.games td{
+	border: 1px solid #CCC;
+	padding: 5px;
+}
+.games tr:last-child td{
+	border-bottom: none;
 }

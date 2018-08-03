@@ -36,6 +36,28 @@ class Dashboard extends Component{
     	<div className="main-wrap">
         <div className="dash-column">
           <h1>Games</h1>
+          <table className="games">
+            <tr>
+              <th>Opponent</th>
+              <th>Status</th>
+              <th>&nbsp;</th>
+            </tr>
+            <tr>
+              <td>brasky645</td>
+              <td>1-2</td>
+              <td>View</td>
+            </tr>
+            <tr>
+              <td>ballsoherd</td>
+              <td>1-0-1</td>
+              <td>View</td>
+            </tr>
+            <tr>
+              <td>herdadvance</td>
+              <td>2-2</td>
+              <td>View</td>
+            </tr>
+          </table>
           <button onClick={this.handleCreateClick}>
             {
               canStartGame?
