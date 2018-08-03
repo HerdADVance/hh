@@ -12,6 +12,7 @@
 
 .games{
 	height: 100%;
+	user-select: none;
 	width: 100%;
 }
 .games th{
@@ -24,6 +25,12 @@
 .games td{
 	border: 1px solid #CCC;
 	padding: 5px;
+}
+.games tr{
+	cursor: pointer;
+}
+.games tr:hover{
+	background: #666;
 }
 .games tr:last-child td{
 	border-bottom: none;
