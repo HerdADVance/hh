@@ -24,7 +24,8 @@ class Dashboard extends Component{
 
   handleCreateClick = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:5000/api/game/join', {userId: 'userId'})
+    const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
+    axios.post('http://localhost:5000/api/game/join', {userId: userId})
         .then((result) => {
           console.log(result.data.message)
         })
