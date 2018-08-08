@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import socketIOClient from 'socket.io-client'
 
 // CSS
 import './Dashboard.css';
@@ -19,6 +20,23 @@ class Dashboard extends Component{
   componentDidMount = () => {
        
   }
+
+  // const manager = new io.Manager(
+  //   'http://localhost:7777',
+  //   {path: '/socket.io'}
+  // );
+
+  // const namespace = {
+  //   home: manager.socket('/home'),
+  //   login: manager.socket('/login'),
+  //   logout: manager.socket('/logout')
+  // };
+
+  // namespace.home.on('welcome', (msg) => {
+  //   console.log("WELCOME");
+  //   title.textContent = msg;
+  //   error.textContent = '';
+  // });
 
   handleCreateClick = (e) =>{
     e.preventDefault();

@@ -1,11 +1,10 @@
 // DEPENDENCIES
 var express = require("express");
-var expressSession = require('express-session');
 var http = require("http");
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 //var User = require('./src/models/User');
-var io = require("socket.io")();
+var socketIo = require("socket.io");
 var cors = require('cors');
 var axios = require('axios');
 var logger = require('morgan');
@@ -22,56 +21,76 @@ var app = express();
 // PORT
 var port = process.env.PORT || 5000;
 
+// SERVER
+const server = http.createServer(app);
 
+
+
+const io = socketIo(server)
+io.on('connection', socket => {
+    console.log("User connected")
+
+    socket.on('change color', (color) => {
+        console.log("Color Changed to: " + color)
+        io.sockets.emit('change color', color)
+    })
+
+    socket.on('disconnect', () => {
+        console.log("User disconnected")
+    })
+})
+
+// SERVER LISTENING
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
 // SOCKET IO
-io.path('/socket.io');
+// io.path('/socket.io');
 
-// Defines Express session middleware
-const session = expressSession({
-    secret: 'seeeeecrrrrrettttt',
-    resave: true,
-    saveUninitialized: true
-});
+// // Defines Express session middleware
+// const session = expressSession({
+//     secret: 'seeeeecrrrrrettttt',
+//     resave: true,
+//     saveUninitialized: true
+// });
 
-// Defines Socket.io namespace middleware that uses above middleware to generate session object
-const ioSession = (socket, next) => {
-    const req = socket.request;
-    const res = socket.request.res;
-    session(req, res, (err) => {
-        next(err);
-        req.session.save();
-    });
-}
+// // Defines Socket.io namespace middleware that uses above middleware to generate session object
+// const ioSession = (socket, next) => {
+//     const req = socket.request;
+//     const res = socket.request.res;
+//     session(req, res, (err) => {
+//         next(err);
+//         req.session.save();
+//     });
+// }
 
-// Namespaces
-const dash = io.of('/');
-//const login = io.of('login');
-//const logout = io.of('/logout');
+// // Namespaces
+// const dash = io.of('/');
+// //const login = io.of('login');
+// //const logout = io.of('/logout');
 
-// Include above session middleware in Express
-app.use(session)
+// // Include above session middleware in Express
+// app.use(session)
 
-// Use session middleware in /home namespace. Check every new socket to see if user is logged in. Otherwise forbid.
-dash.use(ioSession);
-dash.use((socket, next) => {
-    const {session} = socket.request;
-    if(session.isLogged){
-        next();
-    }
-});
+// // Use session middleware in /home namespace. Check every new socket to see if user is logged in. Otherwise forbid.
+// dash.use(ioSession);
+// dash.use((socket, next) => {
+//     const {session} = socket.request;
+//     if(session.isLogged){
+//         next();
+//     }
+// });
 
-// Emit welcome event after successful login
-dash.on('connection', (socket) => {
-    const {username} = socket.request.session;
-    socket.emit('welcome', `Welcome ${username}, you are logged in.`);
-});
+// // Emit welcome event after successful login
+// dash.on('connection', (socket) => {
+//     const {username} = socket.request.session;
+//     socket.emit('welcome', `Welcome ${username}, you are logged in.`);
+// });
 
-// Listen for connections and attatch socket server
-io.attach(app.listen(7777, () => {
-    console.log('HTTP server and Socket.IO running on port 7777');
-}));
+// // Listen for connections and attatch socket server
+// io.attach(app.listen(7777, () => {
+//     console.log('HTTP server and Socket.IO running on port 7777');
+// }));
 
 
 
@@ -83,13 +102,8 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 
-// SET VIEW LOCATION AND ENGINE
-app.set('views', './src/views')
-app.set('view engine', 'pug');
 
-// SERVER
-const server = http.createServer(app);
-server.listen(port, () => console.log(`Listening on port ${port}`));
+
 
 // USAGE OF ROUTES
 app.use(api);

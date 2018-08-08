@@ -32,13 +32,23 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 class App extends Component {
   
   state = {
-    response: ''
+    response: false,
+    endpoint: 'http://localhost:5000',
+    color: 'blue'
+  }
+
+  sendSocket = (color) => {
+    const socket = socketIOClient(this.state.endpoint)
+    socket.emit('change color', color)
   }
 
   componentDidMount(){
-    // this.callApi()
-    //   .then(res => this.setState({ response: res.express}))
-    //   .catch(err => console.log(err));
+    const socket = socketIOClient(this.state.endpoint)
+
+    socket.on('change color', (color) => {
+      console.log("receiving " + color + " from server")
+      this.setState({color: color})
+    })
   }
 
   // callApi = async () => {
@@ -51,11 +61,16 @@ class App extends Component {
   // }
 
   render() {
+
+    const {response} = this.state
+
     return (
       <BrowserRouter>
         <div className="App">
             <Header />
-            <div className="main">
+            <div className="main" style={{background: this.state.color}}>
+              <button onClick={() => this.sendSocket('blue')}>Change to Blue</button>
+              <button onClick={() => this.sendSocket('red')}>Change to Red</button>
               <Switch>
                 <Route exact path="/login" component={Authenticate}/>
                 <PrivateRoute exact path="/" component={Dashboard} />
