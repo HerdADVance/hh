@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import socketIOClient from 'socket.io-client'
 
 // CSS
 import './Dashboard.css';
@@ -13,7 +12,9 @@ class Dashboard extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      canStartGame: true
+      canStartGame: true,
+      redirect: false,
+      modal: false
     }
   }
 
@@ -43,8 +44,7 @@ class Dashboard extends Component{
     const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
     axios.post('http://localhost:5000/api/game/join', {userId: userId})
         .then((result) => {
-          this.setState({canStartGame: false})
-          console.log(result.data.message)
+          this.setState({canStartGame: false, modal:result.data.message})
         })
   }
 
@@ -53,7 +53,10 @@ class Dashboard extends Component{
   }
 
   render(){
+
     const canStartGame = this.state.canStartGame
+    const modal = this.state.modal
+
     return(
     	<div className="main-wrap">
         <div className="dash-column">
@@ -99,6 +102,17 @@ class Dashboard extends Component{
         <div className="dash-column">
           <h1>Stats</h1>
         </div>
+
+        {
+          modal?
+            <div className="modal">
+              <p>{this.state.modal}</p>
+              <button onClick="{this.handleModalClick}">Got It</button>
+            </div>
+          :
+            ''
+        }
+
 	    </div>
     )
   }
