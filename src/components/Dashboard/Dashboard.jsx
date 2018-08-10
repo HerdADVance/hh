@@ -39,7 +39,7 @@ class Dashboard extends Component{
   //   error.textContent = '';
   // });
 
-  handleCreateClick = (e) =>{
+  handlePlayRandomOpponentClick = (e) =>{
     e.preventDefault();
     const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
     axios.post('http://localhost:5000/api/game/join', {userId: userId})
@@ -50,6 +50,10 @@ class Dashboard extends Component{
 
   handleGameClick = () => {
     console.log("Game clicked")
+  }
+
+  handleModalClick = () => {
+    this.setState({modal: false})
   }
 
   render(){
@@ -87,10 +91,10 @@ class Dashboard extends Component{
               </tr>
             </tbody>
           </table>
-          <button onClick={this.handleCreateClick}>
+          <button onClick={this.handlePlayRandomOpponentClick}>
             {
               canStartGame?
-                "Create a Game"
+                "Play Random Opponent"
               :
                 "Waiting on 2nd player"
             }
@@ -105,9 +109,11 @@ class Dashboard extends Component{
 
         {
           modal?
-            <div className="modal">
-              <p>{this.state.modal}</p>
-              <button onClick="{this.handleModalClick}">Got It</button>
+            <div className="modal-bg">
+              <div className="modal">
+                <p>{this.state.modal}</p>
+                <button onClick={this.handleModalClick}>Got It</button>
+              </div>
             </div>
           :
             ''

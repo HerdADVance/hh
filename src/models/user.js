@@ -20,6 +20,10 @@ var UserSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	canCreateGame: {
+		type: Boolean,
+		default: true
 	}
 });
 

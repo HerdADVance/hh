@@ -37,13 +37,26 @@
 }
 
 
+.modal-bg{
+	background: rgba(0,0,0,0.85);
+	height: 100%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 998;
+}
 .modal{
 	background: #666;
+	border-radius: 20px;
 	height: 300px;
 	left: calc(50% - 200px);
 	margin: 0px auto;
+	padding: 20px;
 	position: fixed;
 	top: calc(50% - 150px);
 	width: 400px;
 	z-index: 999;
+}
+.modal p{
+	margin-bottom: 20px;
 }
