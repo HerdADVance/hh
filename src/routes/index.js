@@ -20,6 +20,8 @@ router.post('/api/user/login', user_controller.user_login);
 
 router.post('/api/users/new', user_controller.user_register);
 
+router.post('/api/users/games', user_controller.user_games);
+
 router.post('/api/game/join', game_controller.game_join);
 
 // router.get('/users', function(req, res, next) {

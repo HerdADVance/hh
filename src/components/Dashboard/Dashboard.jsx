@@ -14,12 +14,24 @@ class Dashboard extends Component{
     this.state = {
       canStartGame: true,
       redirect: false,
-      modal: false
+      modal: false,
+      newGameId: false,
+      games: [
+
+      ]
     }
   }
 
   componentDidMount = () => {
-       
+    const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
+    console.log(userId)
+      axios.post('http://localhost:5000/api/users/games/', {userId: userId})
+        .then((result) => {
+          console.log(result.data.user_games)
+          // this.setState({
+          //   games: result.data.games
+          // })
+        }) 
   }
 
   // const manager = new io.Manager(
@@ -44,7 +56,14 @@ class Dashboard extends Component{
     const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
     axios.post('http://localhost:5000/api/game/join', {userId: userId})
         .then((result) => {
-          this.setState({canStartGame: false, modal:result.data.message})
+          this.setState({
+            canStartGame: false, 
+            modal:{
+              modalMessage: result.data.modalMessage,
+              buttonMessage: result.data.buttonMessage
+            },
+            newGameId: result.data.newGameId
+          })
         })
   }
 
@@ -53,13 +72,23 @@ class Dashboard extends Component{
   }
 
   handleModalClick = () => {
-    this.setState({modal: false})
+    this.setState({
+      modal: false,
+      redirect: '/game/' + this.state.newGameId
+    })
   }
 
   render(){
 
+    const {redirect} = this.state
+    if (redirect) {
+      return (<Redirect to={redirect}/>)
+    }
+
     const canStartGame = this.state.canStartGame
     const modal = this.state.modal
+
+    const games = this.state.games
 
     return(
     	<div className="main-wrap">
@@ -85,7 +114,7 @@ class Dashboard extends Component{
                 <td>View</td>
               </tr>
               <tr>
-                <td>herdadvance</td>
+                <td>{games}</td>
                 <td>2-2</td>
                 <td>View</td>
               </tr>
@@ -111,8 +140,8 @@ class Dashboard extends Component{
           modal?
             <div className="modal-bg">
               <div className="modal">
-                <p>{this.state.modal}</p>
-                <button onClick={this.handleModalClick}>Got It</button>
+                <p>{modal.modalMessage}</p>
+                <button onClick={this.handleModalClick}>{modal.buttonMessage}</button>
               </div>
             </div>
           :

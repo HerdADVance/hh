@@ -1,3 +1,5 @@
+const Player = require('../models/player')
+
 var User = require('../models/User');
 var bcrypt = require('bcrypt');
 var axios = require('axios');
@@ -132,6 +134,31 @@ exports.user_register = function(req, res, next){
 	}
 
 };
+
+exports.user_games = function(req, res, next){
+	console.log("USER ID: " + req.body.userId)
+
+	const userId = req.body.userId
+
+	Player.find({user: userId})
+		//.sort([['displayName', 'ascending']])
+		.exec(function (err, players) {
+			if(err) {return next(err);}
+
+			const foundGames = []
+
+			for(var player of players){
+				console.log(player.game);
+				foundGames.push(player.game)
+			}
+
+			console.log(foundGames)
+
+			return res.status(200).json({
+				user_games: players
+			})
+		});
+}
 
 
 

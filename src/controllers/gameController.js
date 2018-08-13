@@ -58,7 +58,9 @@ exports.game_join = function(req, res, next){
 						// Update View to launch game
 
 						return res.status(200).json({
-							message: "2nd player added to Game!"
+							modalMessage: "Your game is ready to start!",
+							buttonMessage: "Go to game",
+							newGameId: foundId
 						})
 					});
 				})
@@ -100,7 +102,8 @@ exports.game_join = function(req, res, next){
 					// Update view for waiting user
 
 					return res.status(200).json({
-						message: "Your game will start as soon as a 2nd player joins."
+						modalMessage: "Your game will start as soon as a 2nd player joins.",
+						buttonMessage: "Got It"
 					})
 				})
 			})
