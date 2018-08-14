@@ -1,4 +1,5 @@
 const Player = require('../models/player')
+const Game = require('../models/game')
 
 var User = require('../models/User');
 var bcrypt = require('bcrypt');
@@ -145,18 +146,21 @@ exports.user_games = function(req, res, next){
 		.exec(function (err, players) {
 			if(err) {return next(err);}
 
-			const foundGames = []
+			const foundGameIds = []
 
+			// Find the Game IDs associated with each Player instance
 			for(var player of players){
-				console.log(player.game);
-				foundGames.push(player.game)
+				foundGameIds.push(player.game)
 			}
 
-			console.log(foundGames)
-
-			return res.status(200).json({
-				user_games: players
-			})
+			// Find more info on the Games based on the Game IDs and send them to the Client
+			Game.find({
+			    '_id': { $in: foundGameIds}
+			}, function(err, games){
+			     return res.status(200).json({
+					user_games: games
+				})
+			});
 		});
 }
 

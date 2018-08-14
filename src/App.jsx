@@ -43,12 +43,12 @@ class App extends Component {
   }
 
   componentDidMount(){
-    const socket = socketIOClient(this.state.endpoint)
+    // const socket = socketIOClient(this.state.endpoint)
 
-    socket.on('change color', (color) => {
-      console.log("receiving " + color + " from server")
-      this.setState({color: color})
-    })
+    // socket.on('change color', (color) => {
+    //   console.log("receiving " + color + " from server")
+    //   this.setState({color: color})
+    // })
   }
 
   // callApi = async () => {

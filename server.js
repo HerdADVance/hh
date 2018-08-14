@@ -26,19 +26,19 @@ const server = http.createServer(app);
 
 
 
-const io = socketIo(server)
-io.on('connection', socket => {
-    console.log("User connected")
+// const io = socketIo(server)
+// io.on('connection', socket => {
+//     console.log("User connected")
 
-    socket.on('change color', (color) => {
-        console.log("Color Changed to: " + color)
-        io.sockets.emit('change color', color)
-    })
+//     socket.on('change color', (color) => {
+//         console.log("Color Changed to: " + color)
+//         io.sockets.emit('change color', color)
+//     })
 
-    socket.on('disconnect', () => {
-        console.log("User disconnected")
-    })
-})
+//     socket.on('disconnect', () => {
+//         console.log("User disconnected")
+//     })
+// })
 
 // SERVER LISTENING
 server.listen(port, () => console.log(`Listening on port ${port}`));
