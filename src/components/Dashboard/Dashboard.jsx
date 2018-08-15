@@ -24,7 +24,6 @@ class Dashboard extends Component{
 
   componentDidMount = () => {
     const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
-    console.log(userId)
       axios.post('http://localhost:5000/api/users/games/', {userId: userId})
         .then((result) => {
           console.log(result.data.user_games)

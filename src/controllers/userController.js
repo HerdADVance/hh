@@ -137,18 +137,41 @@ exports.user_register = function(req, res, next){
 };
 
 exports.user_games = function(req, res, next){
-	console.log("USER ID: " + req.body.userId)
 
 	const userId = req.body.userId
 
-	Player
-		.find({user: userId})
-		.populate('game')
-		.exec(function (err, players){
-			for(var player in players){
-				
-			}
+	var userGames = []
+
+	Game
+		.find({ "players.user": userId })
+		.populate({
+			path: 'players.user',
+			model: 'User'
 		})
+		.exec(function (err, games){
+			for(var game of games){
+				const foundGame = {}
+				foundGame.id = game.id
+				foundGame.opponent = game.players[0].user.displayName
+				foundGame.score = '2-1'
+				userGames.push(foundGame)
+			}
+
+			return res.status(200).json({
+				user_games: userGames
+			})
+
+		})
+	// 		Game
+	// 			.find({ '_id': { $in: foundGameIds}})
+	// 			.populate('user')
+	// 			.exec(function (err, games){
+	// 				console.log(games)
+	// 			})
+
+
+
+	// 	})
 
 	// Player.find({user: userId})
 	// 	//.sort([['displayName', 'ascending']])
@@ -171,6 +194,10 @@ exports.user_games = function(req, res, next){
 	// 			})
 	// 		});
 	//	});
+
+	// return res.status(200).json({
+	// 	user_games: "GAMES"
+	// })
 }
 
 

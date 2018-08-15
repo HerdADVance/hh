@@ -1,6 +1,6 @@
+var Player = require('./player')
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Player = require('./player')
 
 var GameSchema = new Schema({
 	status:{
@@ -8,11 +8,18 @@ var GameSchema = new Schema({
 		default: 'new'
 	},
 	deck: [],
-	players: [{ 
-		type: Schema.Types.ObjectId, 
-		ref: 'Player',
-		max: 2
-	}], 
+	// players: [{ 
+	// 	type: Schema.Types.ObjectId, 
+	// 	ref: 'Player',
+	// 	max: 2,
+	// }], 
+	players: [{
+		user: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
+		},
+		hand: []
+	}],
 	created: {
 		type: Date,
 		default: Date.now
