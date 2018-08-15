@@ -150,10 +150,17 @@ exports.user_games = function(req, res, next){
 		})
 		.exec(function (err, games){
 			for(var game of games){
+
 				const foundGame = {}
-				foundGame.id = game.id
-				foundGame.opponent = game.players[0].user.displayName
+				
+				foundGame.gameId = game.id
 				foundGame.score = '2-1'
+
+				if (game.players[0].user._id ==  userId)
+					foundGame.opponent = game.players[1].user.displayName
+				else
+					foundGame.opponent = game.players[0].user.displayName
+
 				userGames.push(foundGame)
 			}
 
@@ -162,42 +169,6 @@ exports.user_games = function(req, res, next){
 			})
 
 		})
-	// 		Game
-	// 			.find({ '_id': { $in: foundGameIds}})
-	// 			.populate('user')
-	// 			.exec(function (err, games){
-	// 				console.log(games)
-	// 			})
-
-
-
-	// 	})
-
-	// Player.find({user: userId})
-	// 	//.sort([['displayName', 'ascending']])
-	// 	.exec(function (err, players) {
-	// 		if(err) {return next(err);}
-
-	// 		const foundGameIds = []
-
-	// 		// Find the Game IDs associated with each Player instance
-	// 		for(var player of players){
-	// 			foundGameIds.push(player.game)
-	// 		}
-
-	// 		// Find more info on the Games based on the Game IDs and send them to the Client
-	// 		Game.find({
-	// 		    '_id': { $in: foundGameIds}
-	// 		}, function(err, games){
-	// 		     return res.status(200).json({
-	// 				user_games: games
-	// 			})
-	// 		});
-	//	});
-
-	// return res.status(200).json({
-	// 	user_games: "GAMES"
-	// })
 }
 
 

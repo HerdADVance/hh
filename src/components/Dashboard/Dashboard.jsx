@@ -27,9 +27,9 @@ class Dashboard extends Component{
       axios.post('http://localhost:5000/api/users/games/', {userId: userId})
         .then((result) => {
           console.log(result.data.user_games)
-          // this.setState({
-          //   games: result.data.games
-          // })
+          this.setState({
+            games: result.data.user_games
+          })
         }) 
   }
 
@@ -66,8 +66,10 @@ class Dashboard extends Component{
         })
   }
 
-  handleGameClick = () => {
-    console.log("Game clicked")
+  handleGameClick = (gid) => {
+    this.setState({
+      redirect: '/game/' + gid
+    })
   }
 
   handleModalClick = () => {
@@ -98,25 +100,17 @@ class Dashboard extends Component{
               <tr>
                 <th>Opponent</th>
                 <th>Status</th>
-                <th>&nbsp;</th>
+                <th>ID</th>
               </tr>
             </thead>
             <tbody>
-              <tr onClick={this.handleGameClick}>
-                <td>brasky645</td>
-                <td>1-2</td>
-                <td>View</td>
-              </tr>
-              <tr>
-                <td>ballsoherd</td>
-                <td>1-0-1</td>
-                <td>View</td>
-              </tr>
-              <tr>
-                <td>{games}</td>
-                <td>2-2</td>
-                <td>View</td>
-              </tr>
+              {games.map((game, index) => (
+                <tr onClick={() => this.handleGameClick(game.gameId)} key={game.gameId}>
+                  <td>{game.opponent}</td>
+                  <td>{game.score}</td>
+                  <td>View</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <button onClick={this.handlePlayRandomOpponentClick}>

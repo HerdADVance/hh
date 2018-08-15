@@ -18,7 +18,11 @@ var GameSchema = new Schema({
 			type: Schema.Types.ObjectId,
 			ref: 'User'
 		},
-		hand: []
+		hand: [],
+		won: {
+			type: Number,
+			default: 0
+		}
 	}],
 	created: {
 		type: Date,
