@@ -36,7 +36,7 @@ exports.game_join = function(req, res, next){
 			// Push new player instance into found game
 			foundGame.players.push(player)
 
-			// Deal Cards
+			// Deal Cards to players
 			const deck = foundGame.deck
 			for(var i=0; i<20; i++){
 				if(i%2 == 0)
@@ -46,14 +46,25 @@ exports.game_join = function(req, res, next){
 				deck.shift()
 			}
 
-			console.log(deck.length)
+			// Deal 1st Board
+			const board = []
+			for(var i=0; i<5; i++){
+				if(i == 0 | i == 3 | i == 4){
+					deck.push(deck.shift())
+				}
+				board.push(deck[0])
+				deck.shift()
+			}
+			foundGame.boards.push(board)
 
+			// Game elements to update
 			const newPlayers = foundGame.players
 			const newDeck = deck
+			const newBoards = foundGame.boards
 			const newStatus = 'launching'
 
 			// Update game with 2nd player
-			Game.update({ _id: foundId}, {players: newPlayers, deck: newDeck, status: newStatus}, () => {
+			Game.update({ _id: foundId}, {players: newPlayers, deck: newDeck, boards: newBoards, status: newStatus}, () => {
 				if(err){
 					return res.status(400).json({
 						error: "Error updating game"
@@ -102,5 +113,11 @@ exports.game_join = function(req, res, next){
 
 }
 
+exports.game_info = function(req, res, next){
 
+	return res.status(200).json({
+		info: "Info"
+	})
+
+}
 

@@ -74,7 +74,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/login" component={Authenticate}/>
                 <PrivateRoute exact path="/" component={Dashboard} />
-                <Route exact path="/game" component={Game}/>
+                <Route exact path="/game/:id" component={Game}/>
                 <Route path="/user/:id" component={UserProfile}/>
               </Switch>
             </div>

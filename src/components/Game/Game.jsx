@@ -14,14 +14,9 @@ class Game extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      round: 1,
-      deck: DECK,
-      playerOneHand: [],
-      playerTwoHand: [],
-      playerOneHasPlayed: false,
-      playerTwoHasPlayed: false,
-      playerOneScore: 0,
-      playerTwoScore: 0
+      status: 0,
+      flop: [],
+      players: []
     }
   }
 

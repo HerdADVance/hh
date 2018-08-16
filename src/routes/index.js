@@ -24,6 +24,8 @@ router.post('/api/users/games', user_controller.user_games);
 
 router.post('/api/game/join', game_controller.game_join);
 
+router.post('/api/game/:id', game_controller.game_info);
+
 // router.get('/users', function(req, res, next) {
 //  	connection.query('SELECT * from users', function (error, results, fields) {
 // 		if (error) throw error;

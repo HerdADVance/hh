@@ -12,7 +12,8 @@ var GameSchema = new Schema({
 	// 	type: Schema.Types.ObjectId, 
 	// 	ref: 'Player',
 	// 	max: 2,
-	// }], 
+	// }],
+	boards: [],
 	players: [{
 		user: {
 			type: Schema.Types.ObjectId,
