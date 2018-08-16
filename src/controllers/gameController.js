@@ -32,21 +32,33 @@ exports.game_join = function(req, res, next){
 			// Create new player instance
 			const player = {}
 			player.user = userId
-			player.hand = ['2nd Player Hand']
 					
-			// Push new player instance into found game and change status to Launching
+			// Push new player instance into found game
 			foundGame.players.push(player)
+
+			// Deal Cards
+			const deck = foundGame.deck
+			for(var i=0; i<20; i++){
+				if(i%2 == 0)
+					foundGame.players[0].hand.push(deck[0])
+				else
+					foundGame.players[1].hand.push(deck[0])
+				deck.shift()
+			}
+
+			console.log(deck.length)
+
 			const newPlayers = foundGame.players
+			const newDeck = deck
 			const newStatus = 'launching'
 
 			// Update game with 2nd player
-			Game.update({ _id: foundId}, {players: newPlayers, status: newStatus}, () => {
+			Game.update({ _id: foundId}, {players: newPlayers, deck: newDeck, status: newStatus}, () => {
 				if(err){
 					return res.status(400).json({
 						error: "Error updating game"
 					})
 				}
-				// Deal Cards
 
 				// Update View to launch game
 
@@ -67,7 +79,6 @@ exports.game_join = function(req, res, next){
 			// Create new player instance
 			const player = {}
 			player.user = userId
-			player.hand = ['New Hand']
 
 			// Push player into game and change status of game
 			game.players = [player]
