@@ -68,9 +68,9 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
             <Header />
-            <div className="main" style={{background: this.state.color}}>
-              <button onClick={() => this.sendSocket('blue')}>Change to Blue</button>
-              <button onClick={() => this.sendSocket('red')}>Change to Red</button>
+            <div className="main" style={{background: 'auto'}}>
+              {/*<button onClick={() => this.sendSocket('blue')}>Change to Blue</button>
+              <button onClick={() => this.sendSocket('red')}>Change to Red</button>*/}
               <Switch>
                 <Route exact path="/login" component={Authenticate}/>
                 <PrivateRoute exact path="/" component={Dashboard} />

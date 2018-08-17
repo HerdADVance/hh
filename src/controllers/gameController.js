@@ -121,7 +121,9 @@ exports.game_info = function(req, res, next){
 
 	Game.findOne().exec(function(err, foundGame) {
 		return res.status(200).json({
-			gameId: gameId
+			status: foundGame.status,
+			boards: foundGame.boards,
+			players: foundGame.players
 		})
 	})
 

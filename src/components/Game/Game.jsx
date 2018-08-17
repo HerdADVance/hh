@@ -7,16 +7,13 @@ import axios from 'axios';
 import './Game.css';
 
 // COMPONENTS
-import DECK from '../../constants/Deck';
-import PlayerOne from '../Player/Player';
-import PlayerTwo from '../Player/Player';
 
 class Game extends Component{
   constructor(props) {
     super(props);
     this.state = {
       status: 0,
-      flop: [],
+      boards: [],
       players: []
     }
   }
@@ -26,8 +23,12 @@ class Game extends Component{
 
     axios.post('http://localhost:5000/api/game/' + gameId)
       .then(response => {
-          console.log(response.data.gameId)
-          //this.setState({users: response.data.user_list})
+          console.log("BOARD 0: " + response.data.boards[0][0].suit)
+          this.setState({
+            status: response.data.status,
+            boards: response.data.boards,
+            players: response.data.players
+          })
       })
   }
 
@@ -84,6 +85,9 @@ class Game extends Component{
   }  
 
   render(){
+
+    const board = this.state.boards[0]
+
     return(
       <div className="main">
         {/*<PlayerOne 
@@ -93,14 +97,18 @@ class Game extends Component{
         <PlayerTwo
           hand={this.state.playerTwoHand}
           playerNumber="p2"
-        />
+        />*/}
         <div className="cards flop">
-          <img src={"/img/cards/" + this.state.deck[20].face + this.state.deck[20].suit + ".png"} alt={this.state.deck[20].face + this.state.deck[20].suit}/>
-          <img src={"/img/cards/" + this.state.deck[21].face + this.state.deck[21].suit + ".png"} alt={this.state.deck[21].face + this.state.deck[21].suit}/>
-          <img src={"/img/cards/" + this.state.deck[22].face + this.state.deck[22].suit + ".png"} alt={this.state.deck[22].face + this.state.deck[22].suit}/>
-          <img src={"/img/cards/" + this.state.deck[23].face + this.state.deck[23].suit + ".png"} alt={this.state.deck[23].face + this.state.deck[23].suit}/>
-          <img src={"/img/cards/" + this.state.deck[24].face + this.state.deck[24].suit + ".png"} alt={this.state.deck[24].face + this.state.deck[24].suit}/>
-        </div>*/}
+          {
+            board?
+              board.map((card, index) => (
+                <img src={"/img/cards/" + card.face + card.suit + ".png"} alt={card.face + card.suit} key={index}/>
+              ))
+            :
+              ''
+          }
+          
+        </div>
       </div>
     )
   }
