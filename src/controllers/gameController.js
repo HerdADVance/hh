@@ -119,7 +119,12 @@ exports.game_info = function(req, res, next){
 
 	console.log(gameId)
 
-	Game.findOne().exec(function(err, foundGame) {
+	Game.findOne({_id: gameId}).exec(function(err, foundGame) {
+		if(err){
+			return res.status(400).json({
+				error: "Game not found"
+			})
+		}
 		return res.status(200).json({
 			status: foundGame.status,
 			boards: foundGame.boards,
