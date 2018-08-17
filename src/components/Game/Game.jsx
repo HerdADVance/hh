@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
+import axios from 'axios';
 
 // CSS
 import './Game.css';
@@ -21,8 +22,13 @@ class Game extends Component{
   }
 
   componentDidMount() {
-    this.shuffle(this.state.deck);
-    this.dealCards(this.state.deck);
+    var gameId = this.props.match.params.id;
+
+    axios.post('http://localhost:5000/api/game/' + gameId)
+      .then(response => {
+          console.log(response.data.gameId)
+          //this.setState({users: response.data.user_list})
+      })
   }
 
   shuffle(deck){
@@ -83,7 +89,7 @@ class Game extends Component{
         {/*<PlayerOne 
           hand={this.state.playerOneHand}
           playerNumber="p1"
-        />*/}
+        />
         <PlayerTwo
           hand={this.state.playerTwoHand}
           playerNumber="p2"
@@ -94,7 +100,7 @@ class Game extends Component{
           <img src={"/img/cards/" + this.state.deck[22].face + this.state.deck[22].suit + ".png"} alt={this.state.deck[22].face + this.state.deck[22].suit}/>
           <img src={"/img/cards/" + this.state.deck[23].face + this.state.deck[23].suit + ".png"} alt={this.state.deck[23].face + this.state.deck[23].suit}/>
           <img src={"/img/cards/" + this.state.deck[24].face + this.state.deck[24].suit + ".png"} alt={this.state.deck[24].face + this.state.deck[24].suit}/>
-        </div>
+        </div>*/}
       </div>
     )
   }

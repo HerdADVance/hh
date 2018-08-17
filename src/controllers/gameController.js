@@ -115,8 +115,14 @@ exports.game_join = function(req, res, next){
 
 exports.game_info = function(req, res, next){
 
-	return res.status(200).json({
-		info: "Info"
+	var gameId = req.params.id;
+
+	console.log(gameId)
+
+	Game.findOne().exec(function(err, foundGame) {
+		return res.status(200).json({
+			gameId: gameId
+		})
 	})
 
 }
