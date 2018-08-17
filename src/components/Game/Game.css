@@ -4,19 +4,23 @@
 	width: 100%;
 }
 .p1 .cards{
-	top: 20px;
+	top: 80px;
 }
 .p2 .cards{
 	bottom: 70px;
 }
 .cards.flop{
-	top: calc(50% - 73px);
+	top: calc(50% - 58px);
 }
 .cards img{
 	cursor: pointer;
 	display: inline-block;
-	width: 100px;
+	width: 80px;
 }
 .p1 .cards img.chosen{
-	opacity: 0.5;
+	opacity: 0.75;
+}
+button{
+	position: absolute;
+	top: 150px;
 }

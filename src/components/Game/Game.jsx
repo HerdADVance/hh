@@ -7,6 +7,8 @@ import axios from 'axios';
 import './Game.css';
 
 // COMPONENTS
+import PlayerOne from './../Player/Player'
+import PlayerTwo from './../Player/Player'
 
 class Game extends Component{
   constructor(props) {
@@ -23,7 +25,6 @@ class Game extends Component{
 
     axios.post('http://localhost:5000/api/game/' + gameId)
       .then(response => {
-          console.log("BOARD 0: " + response.data.boards[0][0].suit)
           this.setState({
             status: response.data.status,
             boards: response.data.boards,
@@ -87,17 +88,34 @@ class Game extends Component{
   render(){
 
     const board = this.state.boards[0]
+    const playerOne = this.state.players[0]
+    const playerTwo = this.state.players[1]
 
     return(
       <div className="main">
-        {/*<PlayerOne 
-          hand={this.state.playerOneHand}
-          playerNumber="p1"
-        />
-        <PlayerTwo
-          hand={this.state.playerTwoHand}
-          playerNumber="p2"
-        />*/}
+
+      {
+        playerOne?
+          <div>
+            <PlayerOne 
+              gameId={this.props.match.params.id}
+              playerNumber="p1"
+              hand={playerOne.hand}
+              user={playerOne.user}
+              won={playerOne.won}
+            />
+            <PlayerTwo
+              gameId={this.props.match.params.id}
+              playerNumber="p2"
+              hand={playerTwo.hand}
+              user={playerTwo.user}
+              won={playerTwo.won}
+            />
+          </div>
+        :
+          ''
+      }
+
         <div className="cards flop">
           {
             board?

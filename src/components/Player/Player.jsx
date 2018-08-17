@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Player extends Component{
   constructor(props) {
@@ -10,7 +11,12 @@ class Player extends Component{
   }
 
   componentDidMount() {
-    console.log("MOUNTED");
+
+    // this.setState({
+    //   hand: this.props.hand
+    //   players: response.data.players
+    // })
+
   }
 
   handleCardClick(index){
@@ -41,8 +47,11 @@ class Player extends Component{
   }
 
   render(){
-    const hand = this.props.hand
+
     const playerNumber = this.props.playerNumber
+    const hand = this.props.hand
+    const user = this.props.user
+    const won = this.props.won
 
     return(
       <div className={`player ${playerNumber}`}>
