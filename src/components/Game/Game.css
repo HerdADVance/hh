@@ -13,14 +13,23 @@
 	top: calc(50% - 58px);
 }
 .cards img{
+	box-shadow: -1px 0 3px #333;
 	cursor: pointer;
 	display: inline-block;
-	width: 80px;
+	margin-left: -20px;
+	position: relative;
+	width: 86px;
 }
-.p1 .cards img.chosen{
-	opacity: 0.75;
+.cards.flop img{
+	margin-left: 0;
+}
+.p2 .cards img.chosen{
+	top: -10px;
+	height: 126px;
 }
 button{
+	bottom: 225px;
+	left: calc(50% - 100px);
 	position: absolute;
-	top: 150px;
+	width: 200px
 }

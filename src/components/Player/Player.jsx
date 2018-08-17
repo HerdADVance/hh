@@ -19,7 +19,8 @@ class Player extends Component{
 
   }
 
-  handleCardClick(index){
+  handleCardClick(index, playerNumber){
+    console.log(playerNumber)
     var chosenCards = this.state.chosenCards
 
     if(!chosenCards.includes(index)){ // Card was not chosen
@@ -62,7 +63,7 @@ class Player extends Component{
               src={"/img/cards/" + card.face + card.suit + ".png"}
               alt={card.face + card.suit}
               onClick={() => {
-                this.handleCardClick(index)
+                this.handleCardClick(index, playerNumber)
               }}
               className={this.state.chosenCards.includes(index) && "chosen"}
             />
