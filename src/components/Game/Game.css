@@ -27,7 +27,7 @@
 	top: -10px;
 	height: 126px;
 }
-button{
+.player button{
 	bottom: 225px;
 	left: calc(50% - 100px);
 	position: absolute;
