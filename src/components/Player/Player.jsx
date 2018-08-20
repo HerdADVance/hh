@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// CSS
+import './Player.css';
+
 class Player extends Component{
   constructor(props) {
     super(props);
@@ -52,6 +55,7 @@ class Player extends Component{
     const playerNumber = this.props.playerNumber
     const hand = this.props.hand
     const user = this.props.user
+    console.log(user)
     const won = this.props.won
 
     return(
@@ -77,6 +81,9 @@ class Player extends Component{
         >
           Play Hand
         </button>
+        <div className="user-info">
+          <span>{user.username}</span>
+        </div>
       </div>
     )
   }

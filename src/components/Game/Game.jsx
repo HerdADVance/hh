@@ -25,6 +25,7 @@ class Game extends Component{
 
     axios.post('http://localhost:5000/api/game/' + gameId)
       .then(response => {
+          console.log(response)
           this.setState({
             status: response.data.status,
             boards: response.data.boards,
