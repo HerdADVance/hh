@@ -117,14 +117,15 @@ exports.game_info = function(req, res, next){
 
 	var gameId = req.params.id;
 
-	console.log(gameId)
-
-	Game.findOne({_id: gameId}).exec(function(err, foundGame) {
+	Game.findOne({_id: gameId})
+		.populate('players.user', 'displayName')
+		.exec(function(err, foundGame) {
 		if(err){
 			return res.status(400).json({
 				error: "Game not found"
 			})
 		}
+		console.log(foundGame.players)
 		return res.status(200).json({
 			status: foundGame.status,
 			boards: foundGame.boards,

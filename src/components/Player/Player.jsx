@@ -82,7 +82,7 @@ class Player extends Component{
           Play Hand
         </button>
         <div className="user-info">
-          <span>{user.username}</span>
+          <span>{user.displayName}</span>
         </div>
       </div>
     )
