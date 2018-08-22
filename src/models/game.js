@@ -23,6 +23,10 @@ var GameSchema = new Schema({
 		won: {
 			type: Number,
 			default: 0
+		},
+		isUser: {
+			type: Boolean,
+			default: false
 		}
 	}],
 	created: {

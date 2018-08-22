@@ -21,9 +21,10 @@ class Game extends Component{
   }
 
   componentDidMount() {
-    var gameId = this.props.match.params.id;
+    const gameId = this.props.match.params.id;
+    const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
 
-    axios.post('http://localhost:5000/api/game/' + gameId)
+    axios.post('http://localhost:5000/api/game/' + gameId, {userId: userId})
       .then(response => {
           console.log(response)
           this.setState({

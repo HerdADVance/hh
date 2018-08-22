@@ -61,18 +61,30 @@ class Player extends Component{
     return(
       <div className={`player ${playerNumber}`}>
         <div className="cards">
-          {hand.map((card, index) => (
-            <img
-              key={index}
-              src={"/img/cards/" + card.face + card.suit + ".png"}
-              alt={card.face + card.suit}
-              onClick={() => {
-                this.handleCardClick(index, playerNumber)
-              }}
-              className={this.state.chosenCards.includes(index) && "chosen"}
-            />
-          ))}
+          {
+            hand[0]?
+              hand.map((card, index) => (
+                <img
+                  key={index}
+                  src={"/img/cards/" + card.face + card.suit + ".png"}
+                  alt={card.face + card.suit}
+                  onClick={() => {
+                    this.handleCardClick(index, playerNumber)
+                  }}
+                  className={this.state.chosenCards.includes(index) && "chosen"}
+                />
+              ))
+            :
+              hand.map((card, index) => (
+                <img 
+                  key={index}
+                  src={"/img/cards/back.png"}
+                  alt={"back of card"}
+                />
+              ))
+          }
         </div>
+
         <button
           hidden={this.state.chosenCards.length < 2}
           onClick={() => {
@@ -81,8 +93,9 @@ class Player extends Component{
         >
           Play Hand
         </button>
+        
         <div className="user-info">
-          <span>{user.displayName}</span>
+          <span>{user.displayName} ({won})</span>
         </div>
       </div>
     )

@@ -116,6 +116,9 @@ exports.game_join = function(req, res, next){
 exports.game_info = function(req, res, next){
 
 	var gameId = req.params.id;
+	var userId = req.body.userId
+
+	// There should probably be a check here to make sure the userId wasn't spoofed
 
 	Game.findOne({_id: gameId})
 		.populate('players.user', 'displayName')
@@ -125,7 +128,20 @@ exports.game_info = function(req, res, next){
 				error: "Game not found"
 			})
 		}
+
+		// Return empty cards unless belongs to user
+		for(var i=0; i<foundGame.players.length; i++){
+			var handLength = foundGame.players[i].hand.length
+			if(userId != foundGame.players[i].user._id){
+				foundGame.players[i].hand = []
+				for(var j=0; j<handLength; j++){
+					foundGame.players[i].hand.push({})
+				}
+			}
+		}
+
 		console.log(foundGame.players)
+
 		return res.status(200).json({
 			status: foundGame.status,
 			boards: foundGame.boards,
