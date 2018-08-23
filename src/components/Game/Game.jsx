@@ -22,7 +22,11 @@ class Game extends Component{
 
   componentDidMount() {
     const gameId = this.props.match.params.id;
-    const userId = JSON.parse(sessionStorage.getItem('jwt')).user._id
+    let userId = false
+    const user = JSON.parse(sessionStorage.getItem('jwt'))
+    if(user){
+      userId = user.user._id
+    } 
 
     axios.post('http://localhost:5000/api/game/' + gameId, {userId: userId})
       .then(response => {
@@ -92,6 +96,23 @@ class Game extends Component{
     const board = this.state.boards[0]
     const playerOne = this.state.players[0]
     const playerTwo = this.state.players[1]
+    let playerOneIsUser = false
+    let playerOneIsOpponent = false
+    let playerTwoIsUser = false
+    let playerTwoIsOpponent = false
+
+    // User is in game so find which is user and which is opponent
+    if(playerOne){
+      if(playerOne.hand[0] || playerTwo.hand[0]){
+        if(playerOne.hand[0]){
+          playerOneIsUser = true
+          playerTwoIsOpponent = true
+        } else{
+          playerOneIsOpponent = true
+          playerTwoIsUser = true
+        }
+      }
+    }
 
     return(
       <div className="main">
@@ -105,6 +126,8 @@ class Game extends Component{
               hand={playerOne.hand}
               user={playerOne.user}
               won={playerOne.won}
+              isUser={playerOneIsUser}
+              isOpponent={playerOneIsOpponent}
             />
             <PlayerTwo
               gameId={this.props.match.params.id}
@@ -112,6 +135,8 @@ class Game extends Component{
               hand={playerTwo.hand}
               user={playerTwo.user}
               won={playerTwo.won}
+              isUser={playerTwoIsUser}
+              isOpponent={playerTwoIsOpponent}
             />
           </div>
         :

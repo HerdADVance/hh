@@ -1,13 +1,29 @@
+
+.player{
+	height: 126px;
+	position: fixed;
+	width: 100%;
+}
+.p1{
+	top: 60px;
+}
+.p2{
+	bottom: 60px;
+
+}
+.p1.isUser{
+	bottom: 60px !important;
+	top: initial;
+}
+.p2.isOpponent{
+	top: 60px !important;
+	bottom: initial;
+}
+
 .cards{
 	position: absolute;
 	text-align: center;
 	width: 100%;
-}
-.p1 .cards{
-	top: 80px;
-}
-.p2 .cards{
-	bottom: 120px;
 }
 .cards.flop{
 	top: calc(50% - 58px);

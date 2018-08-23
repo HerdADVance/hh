@@ -23,7 +23,6 @@ class Player extends Component{
   }
 
   handleCardClick(index, playerNumber){
-    console.log(playerNumber)
     var chosenCards = this.state.chosenCards
 
     if(!chosenCards.includes(index)){ // Card was not chosen
@@ -55,14 +54,15 @@ class Player extends Component{
     const playerNumber = this.props.playerNumber
     const hand = this.props.hand
     const user = this.props.user
-    console.log(user)
     const won = this.props.won
+    const isUser = this.props.isUser
+    const isOpponent = this.props.isOpponent
 
     return(
-      <div className={`player ${playerNumber}`}>
+      <div className={`player ${playerNumber}${isUser?' isUser' :''}${isOpponent?' isOpponent' :''}`}>
         <div className="cards">
           {
-            hand[0]?
+            isUser?
               hand.map((card, index) => (
                 <img
                   key={index}
