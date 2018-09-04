@@ -3,6 +3,7 @@
 	height: 126px;
 	position: fixed;
 	width: 100%;
+	z-index: 2;
 }
 .p1{
 	top: 60px;
@@ -39,12 +40,12 @@
 .cards.flop img{
 	margin-left: 0;
 }
-.p2 .cards img.chosen{
+.isUser .cards .chosen{
 	top: -10px;
 	height: 126px;
 }
 .player button{
-	bottom: 225px;
+	bottom: 145px;
 	left: calc(50% - 100px);
 	position: absolute;
 	width: 200px

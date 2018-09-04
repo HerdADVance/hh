@@ -14,7 +14,7 @@ class Player extends Component{
   }
 
   componentDidMount() {
-
+    const gameId = this.props.match.params.id;
     // this.setState({
     //   hand: this.props.hand
     //   players: response.data.players
@@ -27,7 +27,7 @@ class Player extends Component{
 
     if(!chosenCards.includes(index)){ // Card was not chosen
       if(chosenCards.length < 2){  // Check to see if card can be chosen
-        chosenCards.push(index)
+        chosenCards.push(this.props.hand[index])
       }
       else{ // Alert that card can't be chosen
         alert("You can only select 2 cards.")
@@ -41,8 +41,16 @@ class Player extends Component{
   }
 
   submitHand(){
-    this.hasPlayed = true
-    this.hasOpponentPlayed()
+    console.log(this.state.chosenCards)
+    // axios.post('http://localhost:5000/api/submitHand/' + gameId, {userId: userId, hand: hand})
+    //   .then(response => {
+    //       console.log(response)
+    //       this.setState({
+    //         status: response.data.status,
+    //         boards: response.data.boards,
+    //         players: response.data.players
+    //       })
+    //   })
   }
 
   hasOpponentPlayed(){
