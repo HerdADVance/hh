@@ -46,10 +46,6 @@ class Player extends Component{
     const gameId = this.props.gameId
     const userId = this.props.user._id
 
-    console.log(hand)
-    console.log(gameId)
-    console.log(userId)
-
     axios.post('http://localhost:5000/api/hand/' + gameId, {userId: userId, hand: hand})
       .then(response => {
           console.log(response)

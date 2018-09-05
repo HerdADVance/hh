@@ -20,6 +20,8 @@ var GameSchema = new Schema({
 			ref: 'User'
 		},
 		hand: [],
+		toPlay: [],
+		hasPlayed: [],
 		won: {
 			type: Number,
 			default: 0

@@ -154,11 +154,69 @@ exports.game_info = function(req, res, next){
 exports.hand_submit = function(req, res, next){
 	const gameId = req.params.id
 	const userId = req.body.userId
-	const hand = req.body.hand
+	const playedHand = req.body.hand
 
-	console.log("GAME ID: " + gameId)
-	console.log("USER ID: " + userId)
-	console.log("CARD 1: " + hand[0].face)
-	console.log("CARD 2: " + hand[1].face)
+	let foundHand = false
+	let opponentHasPlayed = false
+
+	Game.findOne({_id: gameId})
+		.exec(function(err, foundGame){
+		if(err){
+			return res.status(400).json({
+				error: "Game not found"
+			})
+		}
+
+		// Need to make sure user's toPlay is empty
+
+		// Make sure user exists in game and find if opponent has played while we're here
+		for(var i=0; i<2; i++){			
+			if(foundGame.players[i].user == userId){
+				foundHand = foundGame.players[i].hand
+			} else{
+				if (foundGame.players[i].toPlay){
+					opponentHasPlayed = true
+				}
+			}
+		}
+
+		// Throw error if user not found
+		if(!foundHand){
+			return res.status(400).json({
+				error: "User not in game"
+			})
+		}
+
+		// Make sure player's deck has cards in submitted hand
+		for(var i=0; i<2; i++){
+			let wasFound = false
+			for(var j=0; j<foundHand.length; j++){
+				if(JSON.stringify(playedHand[i]) === JSON.stringify(foundHand[j]) ){
+					wasFound = true
+					foundHand.splice(j,1)
+					break
+				}
+			}
+			if(!wasFound){
+				return res.status(400).json({
+					statusMessage: "Cards played don't match user's hand"
+				})
+			}
+		}
+
+		// Opponent hasn't played so let's save user's hand in game as toPlay
+		if(!opponentHasPlayed){
+			const newToPlay = foundHand
+			Game.update({ _id: gameId}, {players: newPlayers}, () => {
+				//
+			});
+		}
+
+		return res.status(200).json({
+			message: "Cards found",
+			handAfter: foundHand
+		})
+	})
+
 }
 
