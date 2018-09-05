@@ -151,3 +151,14 @@ exports.game_info = function(req, res, next){
 
 }
 
+exports.hand_submit = function(req, res, next){
+	const gameId = req.params.id
+	const userId = req.body.userId
+	const hand = req.body.hand
+
+	console.log("GAME ID: " + gameId)
+	console.log("USER ID: " + userId)
+	console.log("CARD 1: " + hand[0].face)
+	console.log("CARD 2: " + hand[1].face)
+}
+

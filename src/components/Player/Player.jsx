@@ -14,7 +14,7 @@ class Player extends Component{
   }
 
   componentDidMount() {
-    const gameId = this.props.match.params.id;
+    //const gameId = this.props.match.params.id;
     // this.setState({
     //   hand: this.props.hand
     //   players: response.data.players
@@ -22,12 +22,13 @@ class Player extends Component{
 
   }
 
-  handleCardClick(index, playerNumber){
+  handleCardClick(index){
+
     var chosenCards = this.state.chosenCards
 
     if(!chosenCards.includes(index)){ // Card was not chosen
       if(chosenCards.length < 2){  // Check to see if card can be chosen
-        chosenCards.push(this.props.hand[index])
+        chosenCards.push(index)
       }
       else{ // Alert that card can't be chosen
         alert("You can only select 2 cards.")
@@ -41,16 +42,23 @@ class Player extends Component{
   }
 
   submitHand(){
-    console.log(this.state.chosenCards)
-    // axios.post('http://localhost:5000/api/submitHand/' + gameId, {userId: userId, hand: hand})
-    //   .then(response => {
-    //       console.log(response)
-    //       this.setState({
-    //         status: response.data.status,
-    //         boards: response.data.boards,
-    //         players: response.data.players
-    //       })
-    //   })
+    const hand = [this.props.hand[this.state.chosenCards[0]], this.props.hand[this.state.chosenCards[1]]]
+    const gameId = this.props.gameId
+    const userId = this.props.user._id
+
+    console.log(hand)
+    console.log(gameId)
+    console.log(userId)
+
+    axios.post('http://localhost:5000/api/hand/' + gameId, {userId: userId, hand: hand})
+      .then(response => {
+          console.log(response)
+          // this.setState({
+          //   status: response.data.status,
+          //   boards: response.data.boards,
+          //   players: response.data.players
+          // })
+      })
   }
 
   hasOpponentPlayed(){
@@ -77,7 +85,7 @@ class Player extends Component{
                   src={"/img/cards/" + card.face + card.suit + ".png"}
                   alt={card.face + card.suit}
                   onClick={() => {
-                    this.handleCardClick(index, playerNumber)
+                    this.handleCardClick(index)
                   }}
                   className={this.state.chosenCards.includes(index) && "chosen"}
                 />
