@@ -158,6 +158,8 @@ exports.hand_submit = function(req, res, next){
 
 	let foundHand = false
 	let opponentHasPlayed = false
+	let opponentHand = false
+	let opponentId = false
 
 	Game.findOne({_id: gameId})
 		.exec(function(err, foundGame){
@@ -174,8 +176,10 @@ exports.hand_submit = function(req, res, next){
 			if(foundGame.players[i].user == userId){
 				foundHand = foundGame.players[i].hand
 			} else{
-				if (foundGame.players[i].toPlay){
+				if (foundGame.players[i].toPlay.length == 2){
 					opponentHasPlayed = true
+					opponentHand = foundGame.players[i].toPlay
+					opponentId = foundGame.players[i].user
 				}
 			}
 		}
@@ -193,7 +197,6 @@ exports.hand_submit = function(req, res, next){
 			for(var j=0; j<foundHand.length; j++){
 				if(JSON.stringify(playedHand[i]) === JSON.stringify(foundHand[j]) ){
 					wasFound = true
-					foundHand.splice(j,1)
 					break
 				}
 			}
@@ -202,20 +205,41 @@ exports.hand_submit = function(req, res, next){
 					statusMessage: "Cards played don't match user's hand"
 				})
 			}
-		}
+		}	
 
 		// Opponent hasn't played so let's save user's hand in game as toPlay
 		if(!opponentHasPlayed){
-			const newToPlay = foundHand
+			
+			let newPlayers = foundGame.players
+			for(var i=0; i<2; i++){			
+				if(newPlayers[i].user == userId){
+					newPlayers[i].toPlay = playedHand
+				} 
+			}
+
+			// Save the game
 			Game.update({ _id: gameId}, {players: newPlayers}, () => {
-				//
+				return res.status(200).json({
+					message: "Waiting on opponent to play hand"
+				})
 			});
+
+		} else{ // Opponent has played so let's compare hands
+
+			console.log("Time to compare hands")
+
+			// compareHands([
+			// 	{
+			// 		hand: opponentHand,
+			// 		userId: opponentId
+			// 	},
+			// 	{
+			// 		hand: playedHand,
+			// 		userId: userId	
+			// 	}
+			// ])
 		}
 
-		return res.status(200).json({
-			message: "Cards found",
-			handAfter: foundHand
-		})
 	})
 
 }
