@@ -15,6 +15,7 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.1.1",
     "morgan": "^1.9.0",
+    "pokersolver": "^2.1.2",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",

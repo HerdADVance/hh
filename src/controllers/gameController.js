@@ -7,6 +7,8 @@ const axios = require('axios')
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 
+const pokerLogic = require('../helpers/pokerLogic')
+
 
 exports.game_join = function(req, res, next){
 
@@ -228,16 +230,17 @@ exports.hand_submit = function(req, res, next){
 
 			console.log("Time to compare hands")
 
-			// compareHands([
-			// 	{
-			// 		hand: opponentHand,
-			// 		userId: opponentId
-			// 	},
-			// 	{
-			// 		hand: playedHand,
-			// 		userId: userId	
-			// 	}
-			// ])
+			pokerLogic.compare([
+				{
+					hand: opponentHand,
+					userId: opponentId
+				},
+				{
+					hand: playedHand,
+					userId: userId	
+				}
+			])
+
 		}
 
 	})
