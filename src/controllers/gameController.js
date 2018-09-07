@@ -228,18 +228,11 @@ exports.hand_submit = function(req, res, next){
 
 		} else{ // Opponent has played so let's compare hands
 
-			console.log("Time to compare hands")
+			const board = foundGame.boards.slice(-1)[0]
+			const hand1 = {hand: opponentHand, userId: opponentId}
+			const hand2 = {hand: playedHand, userId: userId}
 
-			pokerLogic.compare([
-				{
-					hand: opponentHand,
-					userId: opponentId
-				},
-				{
-					hand: playedHand,
-					userId: userId	
-				}
-			])
+			pokerLogic.compare(board, [hand1, hand2])
 
 		}
 
